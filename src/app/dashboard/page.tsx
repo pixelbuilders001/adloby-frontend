@@ -33,22 +33,22 @@ export default function DashboardPage() {
 
     if (!mounted || !isAuthenticated || !user) {
         return (
-            <div className="flex min-h-screen items-center justify-center bg-gray-50 dark:bg-zinc-950">
+            <div className="flex min-h-screen items-center justify-center bg-gray-50">
                 <div className="text-center space-y-4">
-                    <div className="h-10 w-10 animate-spin border-4 border-blue-200 border-t-blue-600 rounded-full mx-auto dark:border-zinc-800 dark:border-t-blue-500" />
-                    <p className="text-sm text-gray-500 dark:text-zinc-400">Verifying session...</p>
+                    <div className="h-10 w-10 animate-spin border-4 border-blue-200 border-t-blue-600 rounded-full mx-auto" />
+                    <p className="text-sm text-gray-500">Verifying session...</p>
                 </div>
             </div>
         );
     }
 
     return (
-        <div className="min-h-screen bg-gray-50 text-gray-905 dark:bg-zinc-950 dark:text-zinc-100">
+        <div className="min-h-screen bg-gray-50 text-gray-905">
             {/* Header */}
-            <header className="sticky top-0 z-40 border-b border-gray-200 bg-white/80 backdrop-blur-md dark:border-zinc-800 dark:bg-zinc-900/80">
+            <header className="sticky top-0 z-40 border-b border-gray-200 bg-white/80 backdrop-blur-md">
                 <div className="flex h-16 items-center justify-between px-4 sm:px-6 lg:px-8">
                     <div className="flex items-center gap-2 font-bold text-lg">
-                        <LayoutDashboard className="h-6 w-6 text-blue-600 dark:text-blue-500" />
+                        <LayoutDashboard className="h-6 w-6 text-blue-600" />
                         <span>Developer Console</span>
                     </div>
                     <div className="flex items-center gap-4">
@@ -64,10 +64,10 @@ export default function DashboardPage() {
             {/* Main Content */}
             <main className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8 space-y-6">
                 <div className="space-y-2">
-                    <h1 className="text-3xl font-extrabold tracking-tight text-gray-950 dark:text-white">
+                    <h1 className="text-3xl font-extrabold tracking-tight text-gray-950">
                         Welcome back, {user.name}!
                     </h1>
-                    <p className="text-gray-500 dark:text-zinc-400">
+                    <p className="text-gray-500">
                         This page represents a secure, client-side verified route.
                     </p>
                 </div>
@@ -75,7 +75,7 @@ export default function DashboardPage() {
                 <div className="grid gap-6 md:grid-cols-2">
                     <Card>
                         <CardHeader className="flex flex-row items-center gap-4">
-                            <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-blue-100 text-blue-600 dark:bg-blue-950 dark:text-blue-400">
+                            <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-blue-100 text-blue-600">
                                 <User className="h-5 w-5" />
                             </div>
                             <div className="grid gap-0.5">
@@ -84,17 +84,17 @@ export default function DashboardPage() {
                             </div>
                         </CardHeader>
                         <CardContent className="space-y-3">
-                            <div className="flex justify-between border-b pb-2 dark:border-zinc-800/80">
-                                <span className="text-sm text-gray-500 dark:text-zinc-400">Name</span>
+                            <div className="flex justify-between border-b pb-2">
+                                <span className="text-sm text-gray-500">Name</span>
                                 <span className="font-semibold">{user.name}</span>
                             </div>
-                            <div className="flex justify-between border-b pb-2 dark:border-zinc-800/80">
-                                <span className="text-sm text-gray-500 dark:text-zinc-400">Email Address</span>
+                            <div className="flex justify-between border-b pb-2">
+                                <span className="text-sm text-gray-500">Email Address</span>
                                 <span className="font-semibold">{user.email}</span>
                             </div>
                             <div className="flex justify-between">
-                                <span className="text-sm text-gray-500 dark:text-zinc-400">System Role</span>
-                                <span className="inline-flex items-center rounded-md bg-blue-50 px-2 py-1 text-xs font-medium text-blue-700 ring-1 ring-inset ring-blue-700/10 dark:bg-blue-950/40 dark:text-blue-300">
+                                <span className="text-sm text-gray-500">System Role</span>
+                                <span className="inline-flex items-center rounded-md bg-blue-50 px-2 py-1 text-xs font-medium text-blue-700 ring-1 ring-inset ring-blue-700/10">
                                     {user.role}
                                 </span>
                             </div>
@@ -103,7 +103,7 @@ export default function DashboardPage() {
 
                     <Card>
                         <CardHeader className="flex flex-row items-center gap-4">
-                            <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-amber-100 text-amber-600 dark:bg-amber-950 dark:text-amber-400">
+                            <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-amber-100 text-amber-600">
                                 <Shield className="h-5 w-5" />
                             </div>
                             <div className="grid gap-0.5">
@@ -112,10 +112,10 @@ export default function DashboardPage() {
                             </div>
                         </CardHeader>
                         <CardContent className="space-y-4">
-                            <p className="text-sm text-gray-500 dark:text-zinc-400">
-                                The layout route uses Next.js Edge Middleware to intercept incoming requests for <code className="rounded bg-gray-100 px-1 dark:bg-zinc-800">/dashboard</code>. If the cookie token does not exist, the user is immediately redirected to login.
+                            <p className="text-sm text-gray-500">
+                                The layout route uses Next.js Edge Middleware to intercept incoming requests for <code className="rounded bg-gray-100 px-1">/dashboard</code>. If the cookie token does not exist, the user is immediately redirected to login.
                             </p>
-                            <div className="rounded-lg bg-zinc-100 p-3 text-xs font-mono text-zinc-900 dark:bg-zinc-900 dark:text-zinc-350">
+                            <div className="rounded-lg bg-zinc-100 p-3 text-xs font-mono text-zinc-900">
                                 <li>
                                     Edit &quot;src/app/page.tsx&quot; to design features
                                 </li>

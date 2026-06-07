@@ -35,12 +35,12 @@ export function Sidebar({ currentTab, onTabChange, isCollapsed, setIsCollapsed }
             animate={{ width: isCollapsed ? 76 : 260 }}
             transition={{ duration: 0.25, ease: "easeInOut" }}
             className={cn(
-                "hidden lg:flex flex-col h-screen sticky top-0 border-r border-gray-250 bg-white/90 backdrop-blur-md z-30 transition-colors duration-200 dark:border-zinc-800 dark:bg-zinc-950/90"
+                "hidden lg:flex flex-col h-screen sticky top-0 border-r border-gray-250 bg-white/90 backdrop-blur-md z-30 transition-colors duration-200"
             )}
             aria-label="Desktop Sidebar Navigation"
         >
             {/* Sidebar Header */}
-            <div className="flex h-16 items-center justify-between px-4 border-b border-gray-200 dark:border-zinc-800">
+            <div className="flex h-16 items-center justify-between px-4 border-b border-gray-200">
                 <div className="flex items-center gap-2 overflow-hidden">
                     <div className="h-9 w-9 rounded-lg bg-[#5B3DF5] flex items-center justify-center text-white flex-shrink-0">
                         <Boxes className="h-5 w-5" />
@@ -59,7 +59,7 @@ export function Sidebar({ currentTab, onTabChange, isCollapsed, setIsCollapsed }
                 {!isCollapsed && (
                     <button
                         onClick={() => setIsCollapsed(true)}
-                        className="p-1.5 rounded-lg text-gray-400 hover:bg-gray-100 hover:text-gray-900 transition-colors dark:text-zinc-500 dark:hover:bg-zinc-900 dark:hover:text-zinc-200"
+                        className="p-1.5 rounded-lg text-gray-400 hover:bg-gray-100 hover:text-gray-900 transition-colors"
                         aria-label="Collapse sidebar"
                     >
                         <ChevronLeft className="h-5 w-5" />
@@ -79,8 +79,8 @@ export function Sidebar({ currentTab, onTabChange, isCollapsed, setIsCollapsed }
                             className={cn(
                                 "w-full flex items-center gap-3 px-3 py-3.5 rounded-xl font-medium text-sm transition-all relative group",
                                 isActive
-                                    ? "text-[#5B3DF5] dark:text-[#5B3DF5] font-semibold"
-                                    : "text-gray-500 hover:bg-gray-50 hover:text-gray-900 dark:text-zinc-400 dark:hover:bg-zinc-900/50 dark:hover:text-zinc-200"
+                                    ? "text-[#5B3DF5] font-semibold"
+                                    : "text-gray-500 hover:bg-gray-50 hover:text-gray-900"
                             )}
                             aria-current={isActive ? "page" : undefined}
                         >
@@ -95,7 +95,7 @@ export function Sidebar({ currentTab, onTabChange, isCollapsed, setIsCollapsed }
                                 <IconComponent
                                     className={cn(
                                         "h-5 w-5 flex-shrink-0 transition-transform duration-200 group-hover:scale-105",
-                                        isActive ? "text-[#5B3DF5]" : "text-gray-400 dark:text-zinc-500"
+                                        isActive ? "text-[#5B3DF5]" : "text-gray-400"
                                     )}
                                 />
                             </div>
@@ -109,7 +109,7 @@ export function Sidebar({ currentTab, onTabChange, isCollapsed, setIsCollapsed }
                                 </motion.span>
                             )}
                             {isCollapsed && (
-                                <div className="absolute left-16 hidden group-hover:block bg-gray-900 text-white text-xs rounded-md px-2.5 py-1.5 whitespace-nowrap shadow-md z-50 pointer-events-none dark:bg-zinc-800">
+                                <div className="absolute left-16 hidden group-hover:block bg-gray-900 text-white text-xs rounded-md px-2.5 py-1.5 whitespace-nowrap shadow-md z-50 pointer-events-none">
                                     {item.label}
                                 </div>
                             )}
@@ -120,10 +120,10 @@ export function Sidebar({ currentTab, onTabChange, isCollapsed, setIsCollapsed }
 
             {/* Collapsed Toggle Footer */}
             {isCollapsed && (
-                <div className="p-4 border-t border-gray-200 dark:border-zinc-800 flex justify-center">
+                <div className="p-4 border-t border-gray-200 flex justify-center">
                     <button
                         onClick={() => setIsCollapsed(false)}
-                        className="p-1.5 rounded-lg text-gray-400 hover:bg-gray-100 hover:text-gray-905 transition-colors dark:text-zinc-500 dark:hover:bg-zinc-900 dark:hover:text-zinc-200"
+                        className="p-1.5 rounded-lg text-gray-400 hover:bg-gray-100 hover:text-gray-905 transition-colors"
                         aria-label="Expand sidebar"
                     >
                         <ChevronRight className="h-5 w-5" />

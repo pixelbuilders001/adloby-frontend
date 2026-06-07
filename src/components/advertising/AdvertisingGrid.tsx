@@ -31,15 +31,15 @@ export function AdvertisingGrid({ onSelectCategory }: AdvertisingGridProps) {
                 {/* Title row */}
                 <div className="flex items-center justify-between">
                     <div className="flex items-center gap-2.5">
-                        <h2 className="text-xl font-bold tracking-tight text-[#5B3DF5] dark:text-white">
+                        <h2 className="text-xl font-bold tracking-tight text-[#5B3DF5]">
                             Advertising Solutions
                         </h2>
-                        <span className="inline-flex items-center gap-1 rounded-full bg-[#5B3DF5]/10 px-2 py-0.5 text-[10px] font-bold text-[#5B3DF5] border border-[#5B3DF5]/20 dark:bg-[#5B3DF5]/20">
+                        <span className="inline-flex items-center gap-1 rounded-full bg-[#5B3DF5]/10 px-2 py-0.5 text-[10px] font-bold text-[#5B3DF5] border border-[#5B3DF5]/20">
                             <Map className="h-3 w-3" />
                             Near You
                         </span>
                     </div>
-                    <button className="text-xs font-bold text-[#5B3DF5] hover:underline dark:text-purple-400">
+                    <button className="text-xs font-bold text-[#5B3DF5] hover:underline">
                         View All
                     </button>
                 </div>
@@ -62,12 +62,12 @@ export function AdvertisingGrid({ onSelectCategory }: AdvertisingGridProps) {
                                 whileHover={{ scale: 1.04, y: -2 }}
                                 whileTap={{ scale: 0.96 }}
                                 onClick={() => onSelectCategory(category.id)}
-                                className="flex flex-col items-center justify-center p-5 rounded-2xl border border-gray-200 bg-white hover:border-[#5B3DF5]/35 hover:shadow-lg hover:shadow-[#5B3DF5]/5 transition-all text-center focus:outline-none focus:ring-2 focus:ring-[#5B3DF5]/20 group dark:bg-zinc-900/50 dark:border-zinc-800 dark:hover:border-[#5B3DF5]/40"
+                                className="flex flex-col items-center justify-center p-5 rounded-2xl border border-gray-200 bg-white hover:border-[#5B3DF5]/35 hover:shadow-lg hover:shadow-[#5B3DF5]/5 transition-all text-center focus:outline-none focus:ring-2 focus:ring-[#5B3DF5]/20 group"
                             >
-                                <div className="h-12 w-12 rounded-xl bg-gray-50 flex items-center justify-center text-[#5B3DF5]/85 group-hover:bg-[#5B3DF5]/10 group-hover:text-[#5B3DF5] transition-colors mb-3 dark:bg-zinc-850 dark:group-hover:bg-[#5B3DF5]/20">
+                                <div className="h-12 w-12 rounded-xl bg-gray-50 flex items-center justify-center text-[#5B3DF5]/85 group-hover:bg-[#5B3DF5]/10 group-hover:text-[#5B3DF5] transition-colors mb-3">
                                     <IconComponent className="h-6 w-6 stroke-[1.8]" />
                                 </div>
-                                <span className="text-xs font-bold text-gray-800 dark:text-zinc-200 break-words w-full group-hover:text-[#5B3DF5] transition-colors leading-tight">
+                                <span className="text-xs font-bold text-gray-800 break-words w-full group-hover:text-[#5B3DF5] transition-colors leading-tight">
                                     {category.title}
                                 </span>
                             </motion.button>

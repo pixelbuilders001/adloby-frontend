@@ -11,7 +11,6 @@ import {
     Boxes
 } from "lucide-react";
 import { cn } from "@/utils/cn";
-import { ThemeToggle } from "@/components/ThemeToggle";
 
 interface HeaderProps {
     currentLocation: string;
@@ -41,7 +40,7 @@ export function Header({
     ];
 
     return (
-        <header className="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-gray-200 w-full transition-colors duration-200 dark:bg-zinc-950/95 dark:border-zinc-800">
+        <header className="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-gray-200 w-full transition-colors duration-200">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 {/* Top Header Row */}
                 <div className="flex h-16 items-center justify-between gap-4">
@@ -50,7 +49,7 @@ export function Header({
                     <div className="flex items-center gap-2">
                         <button
                             onClick={onMenuToggle}
-                            className="lg:hidden p-2 rounded-lg text-gray-500 hover:bg-gray-100 dark:text-zinc-400 dark:hover:bg-zinc-900"
+                            className="lg:hidden p-2 rounded-lg text-gray-500 hover:bg-gray-100"
                             aria-label="Toggle mobile drawer"
                         >
                             <Menu className="h-6 w-6" />
@@ -71,14 +70,13 @@ export function Header({
                     {/* Right Section: Location Selector, Notification, and User Actions */}
                     <div className="flex items-center gap-2 sm:gap-4">
 
-                        {/* Theme Toggle (Utility) */}
-                        <ThemeToggle />
+
 
                         {/* Location Selector Dropdown */}
                         <div className="relative">
                             <button
                                 onClick={() => setIsLocDropdownOpen(!isLocDropdownOpen)}
-                                className="flex items-center gap-1 px-3 py-1.5 rounded-full text-xs font-semibold text-gray-700 bg-gray-100 hover:bg-gray-200 transition-colors focus:outline-none dark:text-zinc-300 dark:bg-zinc-900 dark:hover:bg-zinc-800"
+                                className="flex items-center gap-1 px-3 py-1.5 rounded-full text-xs font-semibold text-gray-700 bg-gray-100 hover:bg-gray-200 transition-colors focus:outline-none"
                                 aria-haspopup="listbox"
                                 aria-expanded={isLocDropdownOpen}
                             >
@@ -95,7 +93,7 @@ export function Header({
                                             initial={{ opacity: 0, y: 10 }}
                                             animate={{ opacity: 1, y: 0 }}
                                             exit={{ opacity: 0, y: 10 }}
-                                            className="absolute right-0 mt-2 w-44 rounded-xl border border-gray-200 bg-white shadow-lg overflow-hidden z-20 dark:border-zinc-800 dark:bg-zinc-90 w-w-44 select-none dark:bg-zinc-900"
+                                            className="absolute right-0 mt-2 w-44 rounded-xl border border-gray-200 bg-white shadow-lg overflow-hidden z-20 w-w-44 select-none"
                                             role="listbox"
                                         >
                                             {locations.map((loc) => (
@@ -109,7 +107,7 @@ export function Header({
                                                             "w-full text-left px-4 py-2.5 text-xs transition-colors",
                                                             currentLocation === loc
                                                                 ? "bg-[#5B3DF5]/10 text-[#5B3DF5] font-semibold"
-                                                                : "text-gray-700 hover:bg-gray-50 dark:text-zinc-300 dark:hover:bg-zinc-800"
+                                                                : "text-gray-700 hover:bg-gray-50"
                                                         )}
                                                     >
                                                         {loc}
@@ -126,7 +124,7 @@ export function Header({
                         <div className="relative">
                             <button
                                 onClick={() => setIsNotificationOpen(!isNotificationOpen)}
-                                className="relative p-2 rounded-full text-gray-600 hover:bg-gray-100 dark:text-zinc-330 dark:hover:bg-zinc-900 dark:text-zinc-300"
+                                className="relative p-2 rounded-full text-gray-600 hover:bg-gray-100"
                                 aria-label="View notifications"
                             >
                                 <Bell className="h-5 w-5" />
@@ -141,10 +139,10 @@ export function Header({
                                             initial={{ opacity: 0, y: 10 }}
                                             animate={{ opacity: 1, y: 0 }}
                                             exit={{ opacity: 0, y: 10 }}
-                                            className="absolute right-0 mt-2 w-80 rounded-xl border border-gray-200 bg-white shadow-lg py-2 z-20 dark:border-zinc-800 dark:bg-zinc-900"
+                                            className="absolute right-0 mt-2 w-80 rounded-xl border border-gray-200 bg-white shadow-lg py-2 z-20"
                                         >
-                                            <div className="px-4 py-2 border-b border-gray-100 dark:border-zinc-800 flex justify-between items-center">
-                                                <span className="text-xs font-bold text-gray-900 dark:text-white">Notifications</span>
+                                            <div className="px-4 py-2 border-b border-gray-100 flex justify-between items-center">
+                                                <span className="text-xs font-bold text-gray-900">Notifications</span>
                                                 <span className="text-[10px] text-gray-400 font-medium">Clear All</span>
                                             </div>
                                             <div className="max-h-60 overflow-y-auto">
@@ -152,11 +150,11 @@ export function Header({
                                                     <div
                                                         key={notif.id}
                                                         className={cn(
-                                                            "px-4 py-3 hover:bg-gray-50 dark:hover:bg-zinc-800/50 transition-colors border-b border-gray-50 dark:border-zinc-802 last:border-0",
-                                                            notif.unread && "bg-blue-50/30 dark:bg-zinc-800/10"
+                                                            "px-4 py-3 hover:bg-gray-50 transition-colors border-b border-gray-50 last:border-0",
+                                                            notif.unread && "bg-blue-50/30"
                                                         )}
                                                     >
-                                                        <p className="text-xs text-gray-700 dark:text-zinc-300">{notif.text}</p>
+                                                        <p className="text-xs text-gray-700">{notif.text}</p>
                                                         <span className="text-[9px] text-gray-400 block mt-1">{notif.time}</span>
                                                     </div>
                                                 ))}
@@ -168,7 +166,7 @@ export function Header({
                         </div>
 
                         {/* Desktop-only Profile Menu Button */}
-                        <button className="hidden lg:flex items-center justify-center p-2 rounded-full text-gray-600 hover:bg-gray-100 dark:text-zinc-300 dark:hover:bg-zinc-900" aria-label="Open profile dropdown">
+                        <button className="hidden lg:flex items-center justify-center p-2 rounded-full text-gray-600 hover:bg-gray-100" aria-label="Open profile dropdown">
                             <User className="h-5 w-5" />
                         </button>
                     </div>
@@ -177,7 +175,7 @@ export function Header({
                 {/* Global Search Bar (Positioned under header row on Desktop and mobile layout) */}
                 <div className="pb-4 w-full">
                     <div className="relative flex items-center w-full">
-                        <div className="absolute left-4 pl-0.5 pointer-events-none text-gray-400 dark:text-zinc-500">
+                        <div className="absolute left-4 pl-0.5 pointer-events-none text-gray-400">
                             <Search className="h-5 w-5" />
                         </div>
 
@@ -186,14 +184,14 @@ export function Header({
                             value={searchValue}
                             onChange={(e) => onSearchChange(e.target.value)}
                             placeholder="Search for hoardings, billboards or printing services..."
-                            className="w-full pl-12 pr-12 py-3 rounded-2xl border border-gray-200 bg-gray-50/50 text-sm text-gray-900 placeholder-gray-400 transition-all focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#5B3DF5]/20 focus:border-[#5B3DF5] dark:border-zinc-800 dark:bg-zinc-900 dark:text-white dark:placeholder-zinc-500 dark:focus:bg-zinc-950"
+                            className="w-full pl-12 pr-12 py-3 rounded-2xl border border-gray-200 bg-gray-50/50 text-sm text-gray-900 placeholder-gray-400 transition-all focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#5B3DF5]/20 focus:border-[#5B3DF5]"
                         />
 
                         <button
                             onClick={() => setIsFilterOpen(!isFilterOpen)}
                             className={cn(
-                                "absolute right-3 p-2 rounded-xl text-gray-500 hover:bg-gray-100 transition-colors dark:text-zinc-400 dark:hover:bg-zinc-800",
-                                isFilterOpen && "text-[#5B3DF5] bg-[#5B3DF5]/10 dark:bg-[#5B3DF5]/20"
+                                "absolute right-3 p-2 rounded-xl text-gray-500 hover:bg-gray-100 transition-colors",
+                                isFilterOpen && "text-[#5B3DF5] bg-[#5B3DF5]/10"
                             )}
                             aria-label="Open search filter panel"
                         >
@@ -210,18 +208,18 @@ export function Header({
                                 exit={{ opacity: 0, height: 0 }}
                                 className="overflow-hidden mt-3"
                             >
-                                <div className="p-4 rounded-xl border border-gray-100 bg-gray-50/50 flex flex-wrap gap-4 dark:border-zinc-800 dark:bg-zinc-900/40">
+                                <div className="p-4 rounded-xl border border-gray-100 bg-gray-50/50 flex flex-wrap gap-4">
                                     <div className="flex flex-col gap-1.5 min-w-40 flex-1">
-                                        <label className="text-[11px] font-semibold text-gray-500 dark:text-zinc-400 uppercase tracking-wider">Solution Category</label>
-                                        <select className="bg-white border border-gray-200 rounded-lg p-2 text-xs text-gray-700 outline-none dark:bg-zinc-900 dark:border-zinc-700 dark:text-zinc-300">
+                                        <label className="text-[11px] font-semibold text-gray-500 uppercase tracking-wider">Solution Category</label>
+                                        <select className="bg-white border border-gray-200 rounded-lg p-2 text-xs text-gray-700 outline-none">
                                             <option>All Services</option>
                                             <option>Advertising Solutions</option>
                                             <option>Printing Solutions</option>
                                         </select>
                                     </div>
                                     <div className="flex flex-col gap-1.5 min-w-40 flex-1">
-                                        <label className="text-[11px] font-semibold text-gray-500 dark:text-zinc-400 uppercase tracking-wider">Pricing Range</label>
-                                        <select className="bg-white border border-gray-200 rounded-lg p-2 text-xs text-gray-700 outline-none dark:bg-zinc-900 dark:border-zinc-700 dark:text-zinc-300">
+                                        <label className="text-[11px] font-semibold text-gray-500 uppercase tracking-wider">Pricing Range</label>
+                                        <select className="bg-white border border-gray-200 rounded-lg p-2 text-xs text-gray-700 outline-none">
                                             <option>Any Price</option>
                                             <option>Under ₹5,000</option>
                                             <option>₹5,000 - ₹10,000</option>
@@ -229,8 +227,8 @@ export function Header({
                                         </select>
                                     </div>
                                     <div className="flex flex-col gap-1.5 min-w-40 flex-1">
-                                        <label className="text-[11px] font-semibold text-gray-500 dark:text-zinc-400 uppercase tracking-wider">Availablity Duration</label>
-                                        <select className="bg-white border border-gray-200 rounded-lg p-2 text-xs text-gray-700 outline-none dark:bg-zinc-900 dark:border-zinc-700 dark:text-zinc-300">
+                                        <label className="text-[11px] font-semibold text-gray-500 uppercase tracking-wider">Availablity Duration</label>
+                                        <select className="bg-white border border-gray-200 rounded-lg p-2 text-xs text-gray-700 outline-none">
                                             <option>Immediate booking</option>
                                             <option>Available next 30 days</option>
                                             <option>Available next 60 days</option>

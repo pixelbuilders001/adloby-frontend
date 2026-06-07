@@ -15,9 +15,9 @@ export default function Error({
     }, [error]);
 
     return (
-        <div className="flex min-h-screen flex-col items-center justify-center bg-white p-6 text-center dark:bg-zinc-950">
+        <div className="flex min-h-screen flex-col items-center justify-center bg-white p-6 text-center">
             <div className="max-w-md space-y-6">
-                <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-red-100 text-red-650 dark:bg-red-950/30 dark:text-red-450">
+                <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-red-100 text-red-650">
                     <svg
                         className="h-8 w-8"
                         fill="none"
@@ -33,10 +33,10 @@ export default function Error({
                     </svg>
                 </div>
                 <div className="space-y-2">
-                    <h2 className="text-2xl font-bold tracking-tight text-gray-950 dark:text-white">
+                    <h2 className="text-2xl font-bold tracking-tight text-gray-950">
                         Something went wrong!
                     </h2>
-                    <p className="text-gray-500 dark:text-zinc-400">
+                    <p className="text-gray-500">
                         {error.message || "An unexpected system error occurred."}
                     </p>
                 </div>

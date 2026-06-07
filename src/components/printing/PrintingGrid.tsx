@@ -30,15 +30,15 @@ export function PrintingGrid({ onSelectItem }: PrintingGridProps) {
                 {/* Title Group */}
                 <div className="flex items-center justify-between">
                     <div className="flex items-center gap-2">
-                        <h2 className="text-xl font-bold tracking-tight text-[#16A34A] dark:text-white flex items-center gap-2">
+                        <h2 className="text-xl font-bold tracking-tight text-[#16A34A] flex items-center gap-2">
                             <span>Printing Solutions</span>
                         </h2>
-                        <span className="inline-flex items-center gap-1 rounded-full bg-[#16A34A]/10 px-2 py-0.5 text-[10px] font-bold text-[#16A34A] border border-[#16A34A]/20 dark:bg-[#16A34A]/20">
+                        <span className="inline-flex items-center gap-1 rounded-full bg-[#16A34A]/10 px-2 py-0.5 text-[10px] font-bold text-[#16A34A] border border-[#16A34A]/20">
                             <Printer className="h-3 w-3" />
                             Verified
                         </span>
                     </div>
-                    <button className="text-xs font-bold text-[#16A34A] hover:underline dark:text-green-400">
+                    <button className="text-xs font-bold text-[#16A34A] hover:underline">
                         View All
                     </button>
                 </div>
@@ -60,12 +60,12 @@ export function PrintingGrid({ onSelectItem }: PrintingGridProps) {
                                 whileHover={{ scale: 1.05 }}
                                 whileTap={{ scale: 0.95 }}
                                 onClick={() => onSelectItem(item.id)}
-                                className="flex items-center gap-3.5 p-4 rounded-2xl border border-gray-150 bg-white hover:border-[#16A34A]/30 hover:shadow-lg hover:shadow-[#16A34A]/5 transition-all text-left focus:outline-none focus:ring-2 focus:ring-[#16A34A]/20 group dark:bg-zinc-900/50 dark:border-zinc-800 dark:hover:border-[#16A34A]/40"
+                                className="flex items-center gap-3.5 p-4 rounded-2xl border border-gray-150 bg-white hover:border-[#16A34A]/30 hover:shadow-lg hover:shadow-[#16A34A]/5 transition-all text-left focus:outline-none focus:ring-2 focus:ring-[#16A34A]/20 group"
                             >
-                                <div className="h-10 w-10 rounded-xl bg-gray-50 flex items-center justify-center text-[#16A34A] group-hover:bg-[#16A34A]/15 group-hover:text-[#16A34A] transition-colors flex-shrink-0 dark:bg-zinc-850 dark:group-hover:bg-[#16A34A]/25">
+                                <div className="h-10 w-10 rounded-xl bg-gray-50 flex items-center justify-center text-[#16A34A] group-hover:bg-[#16A34A]/15 group-hover:text-[#16A34A] transition-colors flex-shrink-0">
                                     <IconComponent className="h-5 w-5 stroke-[1.8]" />
                                 </div>
-                                <span className="text-xs font-bold text-gray-800 dark:text-zinc-200 group-hover:text-[#16A34A] transition-colors truncate">
+                                <span className="text-xs font-bold text-gray-800 group-hover:text-[#16A34A] transition-colors truncate">
                                     {item.title}
                                 </span>
                             </motion.button>

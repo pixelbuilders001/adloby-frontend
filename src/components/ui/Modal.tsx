@@ -38,13 +38,13 @@ export function Modal({ isOpen, onClose, title, children, className }: ModalProp
             {/* Modal Content */}
             <div
                 className={cn(
-                    "relative z-10 w-full max-w-lg scale-100 rounded-2xl border border-gray-200 bg-white p-6 shadow-2xl transition-all dark:border-zinc-800 dark:bg-zinc-950",
+                    "relative z-10 w-full max-w-lg scale-100 rounded-2xl border border-gray-200 bg-white p-6 shadow-2xl transition-all",
                     className
                 )}
             >
-                <div className="flex items-center justify-between pb-3 border-b border-gray-100 dark:border-zinc-800">
+                <div className="flex items-center justify-between pb-3 border-b border-gray-100">
                     {title ? (
-                        <h3 className="text-lg font-semibold text-gray-950 dark:text-white">
+                        <h3 className="text-lg font-semibold text-gray-950">
                             {title}
                         </h3>
                     ) : (
@@ -52,7 +52,7 @@ export function Modal({ isOpen, onClose, title, children, className }: ModalProp
                     )}
                     <button
                         onClick={onClose}
-                        className="rounded-lg p-1 text-gray-400 hover:bg-gray-105 hover:text-gray-900 transition-colors dark:text-zinc-500 dark:hover:bg-zinc-900 dark:hover:text-zinc-100"
+                        className="rounded-lg p-1 text-gray-400 hover:bg-gray-105 hover:text-gray-900 transition-colors"
                     >
                         <X className="h-5 w-5" />
                     </button>

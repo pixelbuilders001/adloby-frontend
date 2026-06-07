@@ -13,7 +13,7 @@ export function Hero({ onExploreAds, onExplorePrinting }: HeroProps) {
         <section className="py-6 sm:py-8 w-full select-none">
             <div className="space-y-4">
                 {/* Section Label */}
-                <h2 className="text-xl font-bold tracking-tight text-gray-900 dark:text-white flex items-center gap-1.5">
+                <h2 className="text-xl font-bold tracking-tight text-gray-900 flex items-center gap-1.5">
                     <span>Choose What You Need</span>
                 </h2>
 
@@ -24,7 +24,7 @@ export function Hero({ onExploreAds, onExplorePrinting }: HeroProps) {
                     <motion.div
                         whileHover={{ y: -4, scale: 1.01 }}
                         transition={{ duration: 0.3 }}
-                        className="group relative overflow-hidden rounded-3xl bg-gradient-to-br from-[#5B3DF5]/5 to-[#5B3DF5]/15 border border-[#5B3DF5]/10 p-6 flex flex-col justify-between min-h-[300px] sm:min-h-[330px] dark:from-[#5B3DF5]/10 dark:to-purple-950/20 dark:border-[#5B3DF5]/20"
+                        className="group relative overflow-hidden rounded-3xl bg-gradient-to-br from-[#5B3DF5]/5 to-[#5B3DF5]/15 border border-[#5B3DF5]/10 p-6 flex flex-col justify-between min-h-[300px] sm:min-h-[330px]"
                     >
                         {/* Visual background accents */}
                         <div className="absolute right-0 bottom-0 w-1/2 h-full opacity-90 group-hover:scale-105 transition-transform duration-500 max-xs:opacity-40">
@@ -45,7 +45,7 @@ export function Hero({ onExploreAds, onExplorePrinting }: HeroProps) {
                             <h3 className="text-xl sm:text-2xl font-black text-[#5B3DF5] leading-tight">
                                 ADVERTISING SOLUTIONS
                             </h3>
-                            <p className="text-xs sm:text-sm text-gray-500 dark:text-zinc-400 font-medium">
+                            <p className="text-xs sm:text-sm text-gray-500 font-medium">
                                 Book premium outdoor billboards, led displays or unipoles for your business.
                             </p>
                         </div>
@@ -66,7 +66,7 @@ export function Hero({ onExploreAds, onExplorePrinting }: HeroProps) {
                     <motion.div
                         whileHover={{ y: -4, scale: 1.01 }}
                         transition={{ duration: 0.3 }}
-                        className="group relative overflow-hidden rounded-3xl bg-gradient-to-br from-[#16A34A]/5 to-[#16A34A]/15 border border-[#16A34A]/10 p-6 flex flex-col justify-between min-h-[300px] sm:min-h-[330px] dark:from-[#16A34A]/10 dark:to-green-950/20 dark:border-[#16A34A]/20"
+                        className="group relative overflow-hidden rounded-3xl bg-gradient-to-br from-[#16A34A]/5 to-[#16A34A]/15 border border-[#16A34A]/10 p-6 flex flex-col justify-between min-h-[300px] sm:min-h-[330px]"
                     >
                         {/* Visual background accents */}
                         <div className="absolute right-0 bottom-0 w-1/2 h-full opacity-90 group-hover:scale-105 transition-transform duration-500 max-xs:opacity-40">
@@ -87,7 +87,7 @@ export function Hero({ onExploreAds, onExplorePrinting }: HeroProps) {
                             <h3 className="text-xl sm:text-2xl font-black text-[#16A34A] leading-tight">
                                 PRINTING SOLUTIONS
                             </h3>
-                            <p className="text-xs sm:text-sm text-gray-500 dark:text-zinc-400 font-medium">
+                            <p className="text-xs sm:text-sm text-gray-500 font-medium">
                                 Get high quality visiting cards, flex banners, pamphlets and menu cards.
                             </p>
                         </div>

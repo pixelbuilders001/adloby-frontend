@@ -20,7 +20,7 @@ export function BottomNavbar({ currentTab, onTabChange, onCreateClick }: BottomN
 
     return (
         <nav
-            className="lg:hidden fixed bottom-0 left-0 right-0 h-16 border-t border-gray-200 bg-white/95 backdrop-blur-md z-40 flex items-center justify-around px-2 pb-safe shadow-[0_-2px_10px_rgba(0,0,0,0.03)] dark:border-zinc-800 dark:bg-zinc-950/95"
+            className="lg:hidden fixed bottom-0 left-0 right-0 h-16 border-t border-gray-200 bg-white/95 backdrop-blur-md z-40 flex items-center justify-around px-2 pb-safe shadow-[0_-2px_10px_rgba(0,0,0,0.03)]"
             role="navigation"
             aria-label="Mobile Navigation Bar"
         >
@@ -40,7 +40,7 @@ export function BottomNavbar({ currentTab, onTabChange, onCreateClick }: BottomN
                             >
                                 <Plus className="h-6 w-6 stroke-[2.5]" />
                             </motion.button>
-                            <span className="text-[10px] font-medium text-gray-500 dark:text-zinc-400 mt-1">
+                            <span className="text-[10px] font-medium text-gray-500 mt-1">
                                 {tab.label}
                             </span>
                         </div>
@@ -58,7 +58,7 @@ export function BottomNavbar({ currentTab, onTabChange, onCreateClick }: BottomN
                             <IconComponent
                                 className={cn(
                                     "h-5.5 w-5.5 transition-colors duration-200",
-                                    isActive ? "text-[#5B3DF5]" : "text-gray-400 dark:text-zinc-500"
+                                    isActive ? "text-[#5B3DF5]" : "text-gray-400"
                                 )}
                             />
                             {isActive && (
@@ -72,7 +72,7 @@ export function BottomNavbar({ currentTab, onTabChange, onCreateClick }: BottomN
                         <span
                             className={cn(
                                 "text-[10px] font-medium mt-1 transition-colors duration-200",
-                                isActive ? "text-[#5B3DF5] font-semibold" : "text-gray-400 dark:text-zinc-500"
+                                isActive ? "text-[#5B3DF5] font-semibold" : "text-gray-400"
                             )}
                         >
                             {tab.label}
