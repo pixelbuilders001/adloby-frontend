@@ -11,7 +11,6 @@ import {
     Lightbulb,
     ChevronDown,
     ShieldCheck,
-    Calendar,
     TrendingUp,
     Headset,
     Printer,
@@ -27,17 +26,45 @@ import {
     Flag,
     Package,
     Plus,
-    Camera,
     ArrowLeft,
     CheckCircle2,
-    Info,
-    Building2,
-    MapPin
+    Info
 } from "lucide-react";
 import { cn } from "@/utils/cn";
 import { Button } from "@/components/ui/Button";
 import { Input } from "@/components/ui/Input";
 import { Card, CardContent } from "@/components/ui/Card";
+
+interface FormData {
+    shopName: string;
+    businessType: string;
+    yearEstablished: string;
+    employeeCount: string;
+    about: string;
+    selectedServices: string[];
+    regNo: string;
+    gstin: string;
+    pan: string;
+    contactName: string;
+    designation: string;
+    email: string;
+    mobile: string;
+    address: string;
+    city: string;
+    state: string;
+    pincode: string;
+    minOrderValue: string;
+    avgTurnaround: string;
+    gstCert: File | null;
+    businessProof: File | null;
+    shopImage: File | null;
+    accName: string;
+    accNo: string;
+    ifsc: string;
+    bankName: string;
+    portfolioUrl: string;
+    languages: string[];
+}
 
 const STEPS = [
     { id: 1, title: "Basic Information", desc: "Tell us about your shop" },
@@ -72,19 +99,16 @@ const SERVICES = [
 
 export default function ShopOnboardingPage() {
     const [activeStep, setActiveStep] = React.useState(1);
-    const shopImageRef = React.useRef<HTMLInputElement>(null);
-    const interiorImageRef = React.useRef<HTMLInputElement>(null);
-    const machineImageRef = React.useRef<HTMLInputElement>(null);
     const [errors, setErrors] = React.useState<string[]>([]);
 
-    const [formData, setFormData] = React.useState({
+    const [formData, setFormData] = React.useState<FormData>({
         // Step 1: Basic
         shopName: "",
         businessType: "",
         yearEstablished: "",
         employeeCount: "",
         about: "",
-        selectedServices: [] as string[],
+        selectedServices: [],
 
         // Step 2: Business
         regNo: "",
@@ -111,9 +135,9 @@ export default function ShopOnboardingPage() {
         avgTurnaround: "",
 
         // Step 7: Documents (Files)
-        gstCert: null as File | null,
-        businessProof: null as File | null,
-        shopImage: null as File | null,
+        gstCert: null,
+        businessProof: null,
+        shopImage: null,
 
         // Step 8: Bank
         accName: "",
@@ -123,10 +147,10 @@ export default function ShopOnboardingPage() {
 
         // Step 9: Profile
         portfolioUrl: "",
-        languages: [] as string[],
+        languages: [],
     });
 
-    const updateFormData = (field: string, value: any) => {
+    const updateFormData = (field: keyof FormData, value: string | string[] | File | null) => {
         setFormData(prev => ({ ...prev, [field]: value }));
         if (errors.length > 0) setErrors([]);
     };
@@ -188,7 +212,7 @@ export default function ShopOnboardingPage() {
         updateFormData("selectedServices", newValue);
     };
 
-    const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>, field: string) => {
+    const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>, field: keyof FormData) => {
         const file = e.target.files?.[0];
         if (file) {
             updateFormData(field, file);
@@ -609,9 +633,9 @@ export default function ShopOnboardingPage() {
                             {activeStep === 7 && (
                                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                                     {[
-                                        { title: "GST Certificate", desc: "GSTIN Proof", field: "gstCert" },
-                                        { title: "Business Proof", desc: "MSME or Trade License", field: "businessProof" },
-                                        { title: "Shop Photo", desc: "Front view of shop", field: "shopImage" },
+                                        { title: "GST Certificate", desc: "GSTIN Proof", field: "gstCert" as keyof FormData },
+                                        { title: "Business Proof", desc: "MSME or Trade License", field: "businessProof" as keyof FormData },
+                                        { title: "Shop Photo", desc: "Front view of shop", field: "shopImage" as keyof FormData },
                                     ].map((doc, i) => (
                                         <div key={i} className="relative">
                                             <input
@@ -631,7 +655,7 @@ export default function ShopOnboardingPage() {
                                                     <div>
                                                         <h4 className="text-xs font-bold text-slate-800">{doc.title}</h4>
                                                         <p className="text-[10px] text-gray-400 font-medium">
-                                                            {(formData as any)[doc.field] ? (formData as any)[doc.field].name : doc.desc}
+                                                            {formData[doc.field] instanceof File ? (formData[doc.field] as File).name : doc.desc}
                                                         </p>
                                                     </div>
                                                 </CardContent>

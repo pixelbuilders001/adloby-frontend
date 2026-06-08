@@ -22,19 +22,44 @@ import {
     Calendar,
     TrendingUp,
     Headset,
-    CreditCard,
-    MapPin,
-    Briefcase,
-    FileCheck,
     ArrowLeft,
     CheckCircle2,
-    Building2,
     Info
 } from "lucide-react";
 import { cn } from "@/utils/cn";
 import { Button } from "@/components/ui/Button";
 import { Input } from "@/components/ui/Input";
 import { Card, CardContent } from "@/components/ui/Card";
+
+interface FormData {
+    agencyName: string;
+    businessType: string;
+    yearEstablished: string;
+    employeeCount: string;
+    about: string;
+    selectedServices: string[];
+    logo: File | null;
+    regNo: string;
+    gstin: string;
+    pan: string;
+    regAddress: string;
+    contactName: string;
+    designation: string;
+    email: string;
+    mobile: string;
+    gstCert: File | null;
+    panCopy: File | null;
+    businessProof: File | null;
+    accName: string;
+    accNo: string;
+    ifsc: string;
+    bankName: string;
+    cities: string;
+    states: string;
+    experience: string;
+    topClients: string;
+    portfolioUrl: string;
+}
 
 const STEPS = [
     { id: 1, title: "Basic Information", desc: "Tell us about your agency" },
@@ -61,18 +86,17 @@ const SERVICES = [
 export default function OnboardingPage() {
     const [activeStep, setActiveStep] = React.useState(1);
     const logoInputRef = React.useRef<HTMLInputElement>(null);
-    const docInputRef = React.useRef<HTMLInputElement>(null);
     const [errors, setErrors] = React.useState<string[]>([]);
 
-    const [formData, setFormData] = React.useState({
+    const [formData, setFormData] = React.useState<FormData>({
         // Step 1: Basic
         agencyName: "",
         businessType: "",
         yearEstablished: "",
         employeeCount: "",
         about: "",
-        selectedServices: [] as string[],
-        logo: null as File | null,
+        selectedServices: [],
+        logo: null,
 
         // Step 2: Business
         regNo: "",
@@ -87,9 +111,9 @@ export default function OnboardingPage() {
         mobile: "",
 
         // Step 4: Documents (Files)
-        gstCert: null as File | null,
-        panCopy: null as File | null,
-        businessProof: null as File | null,
+        gstCert: null,
+        panCopy: null,
+        businessProof: null,
 
         // Step 5: Bank
         accName: "",
@@ -107,7 +131,7 @@ export default function OnboardingPage() {
         portfolioUrl: ""
     });
 
-    const updateFormData = (field: string, value: any) => {
+    const updateFormData = (field: keyof FormData, value: string | string[] | File | null) => {
         setFormData(prev => ({ ...prev, [field]: value }));
         if (errors.length > 0) setErrors([]);
     };
@@ -161,7 +185,7 @@ export default function OnboardingPage() {
         updateFormData("selectedServices", newValue);
     };
 
-    const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>, field: string) => {
+    const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>, field: keyof FormData) => {
         const file = e.target.files?.[0];
         if (file) {
             updateFormData(field, file);
@@ -533,16 +557,16 @@ export default function OnboardingPage() {
                             {activeStep === 4 && (
                                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                                     {[
-                                        { title: "GST Certificate", desc: "GSTIN Proof", field: "gstCert" },
-                                        { title: "PAN Card", desc: "Company/Individual PAN", field: "panCopy" },
-                                        { title: "Registration Proof", desc: "COI or Trade License", field: "businessProof" },
+                                        { title: "GST Certificate", desc: "GSTIN Proof", field: "gstCert" as keyof FormData },
+                                        { title: "PAN Card", desc: "Company/Individual PAN", field: "panCopy" as keyof FormData },
+                                        { title: "Registration Proof", desc: "COI or Trade License", field: "businessProof" as keyof FormData },
                                     ].map((doc, i) => (
                                         <div key={i} className="relative">
                                             <input
                                                 type="file"
                                                 id={`file-${doc.field}`}
                                                 className="hidden"
-                                                onChange={(e) => handleFileChange(e, doc.field as any)}
+                                                onChange={(e) => handleFileChange(e, doc.field)}
                                             />
                                             <Card
                                                 onClick={() => document.getElementById(`file-${doc.field}`)?.click()}
@@ -555,7 +579,7 @@ export default function OnboardingPage() {
                                                     <div>
                                                         <h4 className="text-xs font-bold text-slate-800">{doc.title}</h4>
                                                         <p className="text-[10px] text-gray-400 font-medium">
-                                                            {(formData as any)[doc.field as any] ? (formData as any)[doc.field as any].name : doc.desc}
+                                                            {formData[doc.field] instanceof File ? (formData[doc.field] as File).name : doc.desc}
                                                         </p>
                                                     </div>
                                                 </CardContent>
