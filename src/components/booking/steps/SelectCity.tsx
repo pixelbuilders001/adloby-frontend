@@ -28,7 +28,7 @@ export default function SelectCity() {
     return (
         <div className="space-y-8">
             <div className="flex flex-col gap-2">
-                <h2 className="text-3xl font-black text-slate-900 tracking-tight">Select City</h2>
+                <h2 className="text-2xl lg:text-3xl font-black text-slate-900 tracking-tight leading-tight">Select City</h2>
                 <p className="text-gray-400 font-medium tracking-wide">Where would you like to run your campaign?</p>
             </div>
 
@@ -41,7 +41,7 @@ export default function SelectCity() {
                         placeholder="Search for a city..."
                         value={search}
                         onChange={(e) => setSearch(e.target.value)}
-                        className="w-full bg-gray-50/50 border-gray-100 rounded-2xl py-4 pl-12 pr-4 focus:outline-none focus:ring-2 focus:ring-[#5B3DF5]/10 focus:border-[#5B3DF5] transition-all font-bold text-slate-800"
+                        className="w-full bg-gray-50/50 border-gray-100 rounded-2xl py-4 pl-12 pr-4 focus:outline-none focus:ring-2 focus:ring-[#5B3DF5]/10 focus:border-[#5B3DF5] transition-all font-semibold text-slate-800"
                     />
                 </div>
 
@@ -68,7 +68,7 @@ export default function SelectCity() {
                                         <MapPin className="h-5 w-5" />
                                     </div>
                                     <span className={cn(
-                                        "font-black tracking-tight",
+                                        "font-bold tracking-tight",
                                         isSelected ? "text-slate-900" : "text-slate-600"
                                     )}>
                                         {city}
@@ -94,13 +94,13 @@ export default function SelectCity() {
             <div className="fixed bottom-0 left-0 right-0 p-4 bg-white/80 backdrop-blur-md border-t border-gray-100 lg:static lg:bg-transparent lg:border-0 lg:p-0 z-40">
                 <div className="max-w-7xl mx-auto flex items-center justify-between lg:justify-end gap-6 font-bold lg:pt-8 bg-white lg:bg-transparent p-4 lg:p-0 rounded-t-[32px] lg:rounded-none shadow-2xl lg:shadow-none">
                     <div className="flex flex-col lg:hidden">
-                        <span className="text-[10px] text-gray-400 uppercase tracking-widest leading-none mb-1">Estimated Price</span>
-                        <span className="text-xl font-black text-[#5B3DF5]">₹0</span>
+                        <span className="text-[10px] text-gray-400 uppercase tracking-widest font-semibold leading-none mb-1">Estimated Price</span>
+                        <span className="text-lg font-bold text-[#5B3DF5]">₹0</span>
                     </div>
                     <Button
                         onClick={nextStep}
                         disabled={!selectedCity}
-                        className="bg-[#5B3DF5] hover:bg-[#4a2ee0] text-white font-bold rounded-2xl px-12 py-7 h-auto flex-1 lg:flex-none shadow-lg shadow-[#5B3DF5]/20 disabled:grayscale disabled:opacity-50 transition-all"
+                        className="bg-[#5B3DF5] hover:bg-[#4a2ee0] text-white font-bold rounded-2xl px-12 py-5 lg:py-7 h-auto flex-1 lg:flex-none shadow-lg shadow-[#5B3DF5]/20 disabled:grayscale disabled:opacity-50 transition-all font-sans"
                     >
                         Next Step
                         <motion.span animate={{ x: [0, 4, 0] }} transition={{ repeat: Infinity, duration: 1.5 }} className="ml-2">

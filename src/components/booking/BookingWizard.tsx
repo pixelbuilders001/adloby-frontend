@@ -67,11 +67,11 @@ export default function BookingWizard() {
             <div className="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-gray-100">
                 <div className="max-w-7xl mx-auto px-4 h-20 flex items-center justify-between">
                     <div className="flex items-center gap-3">
-                        <Link href="/" className="flex items-center gap-3">
-                            <div className="h-10 w-10 rounded-2xl bg-[#5B3DF5] flex items-center justify-center text-white shadow-lg shadow-[#5B3DF5]/20">
-                                <Boxes className="h-6 w-6" />
+                        <Link href="/" className="flex items-center gap-2.5">
+                            <div className="h-9 w-9 rounded-xl bg-[#5B3DF5] flex items-center justify-center text-white shadow-lg shadow-[#5B3DF5]/20">
+                                <Boxes className="h-5 w-5" />
                             </div>
-                            <span className="font-black text-xl tracking-tight text-slate-900">Adloby</span>
+                            <span className="font-bold text-lg tracking-tight text-slate-900">Adloby</span>
                         </Link>
                     </div>
 
@@ -119,17 +119,17 @@ export default function BookingWizard() {
                         {STEPS.map((step) => (
                             <div key={step.id} className="flex items-center gap-3">
                                 <div className={cn(
-                                    "h-7 w-7 rounded-full flex items-center justify-center text-[10px] font-bold transition-all",
+                                    "h-6 w-6 rounded-full flex items-center justify-center text-[9px] font-bold transition-all",
                                     activeStep === step.id
                                         ? "bg-[#5B3DF5] text-white"
                                         : activeStep > step.id
                                             ? "bg-green-500 text-white"
                                             : "bg-gray-100 text-gray-400"
                                 )}>
-                                    {activeStep > step.id ? <Check className="h-3 w-3" /> : step.id}
+                                    {activeStep > step.id ? <Check className="h-2.5 w-2.5" /> : step.id}
                                 </div>
                                 <span className={cn(
-                                    "text-xs font-black uppercase tracking-wider",
+                                    "text-[10px] font-bold uppercase tracking-wider",
                                     activeStep === step.id ? "text-slate-900" : "text-gray-400"
                                 )}>
                                     {step.label}

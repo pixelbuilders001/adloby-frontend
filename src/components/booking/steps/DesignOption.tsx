@@ -34,7 +34,7 @@ export default function DesignOption() {
     return (
         <div className="space-y-8">
             <div className="flex flex-col gap-2">
-                <h2 className="text-3xl font-black text-slate-900 tracking-tight">Design Option</h2>
+                <h2 className="text-2xl lg:text-3xl font-black text-slate-900 tracking-tight leading-tight">Design Option</h2>
                 <p className="text-gray-400 font-medium tracking-wide">How would you like to handle the advertisement design?</p>
             </div>
 
@@ -48,27 +48,27 @@ export default function DesignOption() {
                             key={opt.id}
                             onClick={() => updateBooking({ designOption: opt.id as DesignOptionType })}
                             className={cn(
-                                "w-full flex items-center gap-6 p-6 rounded-3xl border-2 transition-all duration-300 group active:scale-[0.99]",
+                                "w-full flex items-center gap-4 lg:gap-6 p-4 lg:p-6 rounded-3xl border lg:border-2 transition-all duration-300 group active:scale-[0.99]",
                                 isSelected
                                     ? "bg-[#5B3DF5]/5 border-[#5B3DF5] shadow-[0_8px_20px_rgba(91,61,245,0.08)]"
                                     : "bg-white border-gray-50 hover:border-gray-100 hover:bg-gray-50/50"
                             )}
                         >
                             <div className={cn(
-                                "h-14 w-14 rounded-2xl flex items-center justify-center transition-all duration-300",
-                                isSelected ? "bg-[#5B3DF5] text-white shadow-lg" : "bg-gray-100 text-slate-400 group-hover:bg-white"
+                                "h-10 w-10 lg:h-14 lg:w-14 rounded-2xl flex items-center justify-center transition-all duration-300",
+                                isSelected ? "bg-[#5B3DF5] text-white shadow-lg" : "bg-gray-50 text-slate-400 group-hover:bg-white"
                             )}>
-                                <Icon className="h-7 w-7" />
+                                <Icon className="h-5 w-5 lg:h-7 lg:w-7" />
                             </div>
 
                             <div className="flex flex-col items-start gap-0.5 flex-1 text-left">
                                 <span className={cn(
-                                    "text-lg font-black tracking-tight",
+                                    "text-base lg:text-lg font-bold lg:font-black tracking-tight",
                                     isSelected ? "text-slate-900" : "text-slate-600 group-hover:text-slate-900"
                                 )}>
                                     {opt.title}
                                 </span>
-                                <span className="text-xs text-gray-400 font-medium leading-relaxed">
+                                <span className="text-[10px] lg:text-xs text-gray-400 font-medium leading-relaxed">
                                     {opt.desc}
                                 </span>
                             </div>
@@ -89,11 +89,11 @@ export default function DesignOption() {
             {/* Navigation Buttons */}
             <div className="lg:hidden h-24" />
             <div className="fixed bottom-0 left-0 right-0 p-4 bg-white/80 backdrop-blur-md border-t border-gray-100 lg:static lg:bg-transparent lg:border-0 lg:p-0 z-40">
-                <div className="max-w-7xl mx-auto flex items-center justify-between gap-6 font-bold lg:pt-8 bg-white lg:bg-transparent p-4 lg:p-0 rounded-t-[32px] lg:rounded-none shadow-2xl lg:shadow-none">
+                <div className="max-w-7xl mx-auto flex items-center justify-between gap-4 font-bold lg:pt-8 bg-white lg:bg-transparent p-4 lg:p-0 rounded-t-[32px] lg:rounded-none shadow-2xl lg:shadow-none">
                     <Button
                         variant="outline"
                         onClick={prevStep}
-                        className="rounded-2xl px-8 py-7 h-auto border-gray-100 text-slate-600 hover:bg-gray-50 active:scale-95 transition-all flex items-center gap-2"
+                        className="rounded-xl px-6 lg:px-8 py-5 lg:py-7 h-auto border-gray-100 text-slate-600 hover:bg-gray-50 active:scale-95 transition-all flex items-center gap-2"
                     >
                         <ArrowLeft className="h-5 w-5" />
                         <span className="hidden sm:inline">Back</span>
@@ -102,7 +102,7 @@ export default function DesignOption() {
                     <Button
                         onClick={nextStep}
                         disabled={!selectedOpt}
-                        className="bg-[#5B3DF5] hover:bg-[#4a2ee0] text-white font-bold rounded-2xl px-12 py-7 h-auto flex-1 lg:flex-none shadow-lg shadow-[#5B3DF5]/20 disabled:grayscale disabled:opacity-50 transition-all font-sans"
+                        className="bg-[#5B3DF5] hover:bg-[#4a2ee0] text-white font-bold rounded-xl lg:rounded-2xl px-12 py-5 lg:py-7 h-auto flex-1 lg:flex-none shadow-lg shadow-[#5B3DF5]/20 disabled:grayscale disabled:opacity-50 transition-all font-sans"
                     >
                         Next Step
                         <motion.span animate={{ x: [0, 4, 0] }} transition={{ repeat: Infinity, duration: 1.5 }} className="ml-2">

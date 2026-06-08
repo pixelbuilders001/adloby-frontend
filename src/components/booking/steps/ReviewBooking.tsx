@@ -29,7 +29,7 @@ export default function ReviewBooking() {
     return (
         <div className="space-y-8">
             <div className="flex flex-col gap-2">
-                <h2 className="text-3xl font-black text-slate-900 tracking-tight">Review Your Booking</h2>
+                <h2 className="text-2xl lg:text-3xl font-black text-slate-900 tracking-tight leading-tight">Review Your Booking</h2>
                 <p className="text-gray-400 font-medium tracking-wide">Double check everything before we proceed to payment.</p>
             </div>
 
@@ -47,7 +47,7 @@ export default function ReviewBooking() {
                 {/* Final Breakdown */}
                 <div className="bg-[#5B3DF5] rounded-[32px] p-8 text-white shadow-2xl shadow-[#5B3DF5]/30 flex flex-col justify-between">
                     <div className="space-y-6">
-                        <h3 className="text-xl font-black tracking-tight">Pricing Breakdown</h3>
+                        <h3 className="text-lg lg:text-xl font-black tracking-tight">Pricing Breakdown</h3>
 
                         <div className="space-y-3">
                             <BreakdownRow label="Media Cost" value={mediaCost} />
@@ -59,8 +59,8 @@ export default function ReviewBooking() {
 
                     <div className="pt-8 border-t border-white/10 mt-8">
                         <div className="flex justify-between items-center mb-6">
-                            <span className="text-sm font-bold text-white/60 uppercase tracking-widest">Final Amount</span>
-                            <span className="text-4xl font-black tracking-tighter">₹{total.toLocaleString()}</span>
+                            <span className="text-sm font-semibold text-white/60 uppercase tracking-widest">Final Amount</span>
+                            <span className="text-3xl lg:text-4xl font-bold lg:font-black tracking-tighter">₹{total.toLocaleString()}</span>
                         </div>
 
                         <div className="p-4 bg-white/10 rounded-2xl flex items-start gap-3">
@@ -76,11 +76,11 @@ export default function ReviewBooking() {
             {/* Navigation Buttons */}
             <div className="lg:hidden h-24" />
             <div className="fixed bottom-0 left-0 right-0 p-4 bg-white/80 backdrop-blur-md border-t border-gray-100 lg:static lg:bg-transparent lg:border-0 lg:p-0 z-40">
-                <div className="max-w-7xl mx-auto flex items-center justify-between gap-6 font-bold lg:pt-8 bg-white lg:bg-transparent p-4 lg:p-0 rounded-t-[32px] lg:rounded-none shadow-2xl lg:shadow-none">
+                <div className="max-w-7xl mx-auto flex items-center justify-between gap-4 font-bold lg:pt-8 bg-white lg:bg-transparent p-4 lg:p-0 rounded-t-[32px] lg:rounded-none shadow-2xl lg:shadow-none">
                     <Button
                         variant="outline"
                         onClick={prevStep}
-                        className="rounded-2xl px-8 py-7 h-auto border-gray-100 text-slate-600 hover:bg-gray-50 active:scale-95 transition-all flex items-center gap-2"
+                        className="rounded-xl px-6 lg:px-8 py-5 lg:py-7 h-auto border-gray-100 text-slate-600 hover:bg-gray-50 active:scale-95 transition-all flex items-center gap-2"
                     >
                         <ArrowLeft className="h-5 w-5" />
                         <span className="hidden sm:inline">Back</span>
@@ -88,10 +88,10 @@ export default function ReviewBooking() {
 
                     <Button
                         onClick={nextStep}
-                        className="bg-[#5B3DF5] hover:bg-[#4a2ee0] text-white font-bold rounded-2xl px-12 py-7 h-auto flex-1 lg:flex-none shadow-lg shadow-[#5B3DF5]/20 active:scale-95 transition-all flex items-center justify-center gap-3"
+                        className="bg-[#5B3DF5] hover:bg-[#4a2ee0] text-white font-bold rounded-xl lg:rounded-2xl px-8 lg:px-12 py-5 lg:py-7 h-auto flex-1 lg:flex-none shadow-lg shadow-[#5B3DF5]/20 active:scale-95 transition-all flex items-center justify-center gap-3 font-sans"
                     >
                         Proceed To Book
-                        <ArrowRight className="h-5 w-5" />
+                        <ArrowRight className="h-4 w-4 lg:h-5 lg:w-5" />
                     </Button>
                 </div>
             </div>
@@ -102,10 +102,10 @@ export default function ReviewBooking() {
 function ReviewCard({ label, value, onEdit }: { label: string; value?: string; onEdit: () => void }) {
     if (!value) return null;
     return (
-        <div className="flex items-center justify-between p-5 bg-white rounded-2xl border border-gray-100 group">
-            <div className="flex flex-col">
-                <span className="text-[10px] text-gray-400 font-black uppercase tracking-widest leading-none mb-1">{label}</span>
-                <span className="text-base font-black text-slate-800">{value}</span>
+        <div className="flex items-center justify-between p-4 lg:p-5 bg-white rounded-2xl border border-gray-100 group">
+            <div className="flex flex-col text-left">
+                <span className="text-[10px] text-gray-400 font-semibold uppercase tracking-widest leading-none mb-1">{label}</span>
+                <span className="text-sm lg:text-base font-bold text-slate-800">{value}</span>
             </div>
             <button
                 onClick={onEdit}

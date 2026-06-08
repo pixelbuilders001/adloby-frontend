@@ -36,7 +36,7 @@ export default function ChooseTemplate() {
     return (
         <div className="space-y-8">
             <div className="flex flex-col gap-2">
-                <h2 className="text-3xl font-black text-slate-900 tracking-tight">Choose Template</h2>
+                <h2 className="text-2xl lg:text-3xl font-black text-slate-900 tracking-tight leading-tight">Choose Template</h2>
                 <p className="text-gray-400 font-medium tracking-wide">Select a pre-designed layout for your campaign.</p>
             </div>
 
@@ -51,10 +51,10 @@ export default function ChooseTemplate() {
                                 key={cat.id}
                                 onClick={() => setSelectedCat(cat.id)}
                                 className={cn(
-                                    "flex items-center gap-2 px-6 py-3 rounded-2xl border-2 transition-all whitespace-nowrap",
+                                    "flex items-center gap-2 px-4 lg:px-6 py-2 lg:py-3 rounded-xl lg:rounded-2xl text-xs lg:text-sm font-semibold transition-all whitespace-nowrap",
                                     isSelected
-                                        ? "bg-[#5B3DF5] border-[#5B3DF5] text-white shadow-lg shadow-[#5B3DF5]/20"
-                                        : "bg-white border-gray-50 text-slate-600 hover:border-gray-100"
+                                        ? "bg-[#5B3DF5] text-white shadow-lg shadow-[#5B3DF5]/20"
+                                        : "bg-white text-gray-500 border border-gray-100 hover:border-gray-200"
                                 )}
                             >
                                 <Icon className="h-4 w-4" />
@@ -73,13 +73,13 @@ export default function ChooseTemplate() {
                                 key={template.id}
                                 onClick={() => updateBooking({ selectedTemplate: template })}
                                 className={cn(
-                                    "relative flex flex-col rounded-3xl border-2 overflow-hidden transition-all duration-300 group active:scale-[0.98]",
+                                    "group relative bg-white p-2 lg:p-3 rounded-2xl lg:rounded-3xl border lg:border-2 transition-all duration-300 active:scale-[0.98]",
                                     isSelected
-                                        ? "bg-[#5B3DF5]/5 border-[#5B3DF5] shadow-[0_12px_24px_rgba(91,61,245,0.12)]"
-                                        : "bg-white border-gray-100 hover:border-gray-200"
+                                        ? "border-[#5B3DF5] shadow-[0_12px_24px_rgba(91,61,245,0.1)] scale-[1.02]"
+                                        : "border-gray-50 hover:border-gray-100"
                                 )}
                             >
-                                <div className="h-48 w-full relative overflow-hidden">
+                                <div className="h-48 w-full relative overflow-hidden rounded-xl lg:rounded-2xl">
                                     <Image
                                         src={template.image}
                                         alt={template.name}
@@ -98,12 +98,12 @@ export default function ChooseTemplate() {
                                     )}
                                 </div>
 
-                                <div className="p-4 flex flex-col items-start text-left">
-                                    <span className="text-[10px] text-gray-400 font-black uppercase tracking-widest leading-none mb-1">
+                                <div className="mt-3 lg:mt-4 px-1 flex flex-col items-start text-left">
+                                    <span className="text-[8px] lg:text-[10px] text-gray-400 font-black uppercase tracking-widest leading-none mb-1">
                                         {template.category}
                                     </span>
                                     <span className={cn(
-                                        "text-base font-black tracking-tight",
+                                        "text-sm lg:text-base font-black tracking-tight",
                                         isSelected ? "text-[#5B3DF5]" : "text-slate-800"
                                     )}>
                                         {template.name}
@@ -118,11 +118,11 @@ export default function ChooseTemplate() {
             {/* Navigation Buttons */}
             <div className="lg:hidden h-24" />
             <div className="fixed bottom-0 left-0 right-0 p-4 bg-white/80 backdrop-blur-md border-t border-gray-100 lg:static lg:bg-transparent lg:border-0 lg:p-0 z-40">
-                <div className="max-w-7xl mx-auto flex items-center justify-between gap-6 font-bold lg:pt-8 bg-white lg:bg-transparent p-4 lg:p-0 rounded-t-[32px] lg:rounded-none shadow-2xl lg:shadow-none">
+                <div className="max-w-7xl mx-auto flex items-center justify-between gap-4 font-bold lg:pt-8 bg-white lg:bg-transparent p-4 lg:p-0 rounded-t-[32px] lg:rounded-none shadow-2xl lg:shadow-none">
                     <Button
                         variant="outline"
                         onClick={prevStep}
-                        className="rounded-2xl px-8 py-7 h-auto border-gray-100 text-slate-600 hover:bg-gray-50 active:scale-95 transition-all flex items-center gap-2"
+                        className="rounded-xl px-6 lg:px-8 py-5 lg:py-7 h-auto border-gray-100 text-slate-600 hover:bg-gray-50 active:scale-95 transition-all flex items-center gap-2"
                     >
                         <ArrowLeft className="h-5 w-5" />
                         <span className="hidden sm:inline">Back</span>
@@ -136,7 +136,7 @@ export default function ChooseTemplate() {
                     <Button
                         onClick={nextStep}
                         disabled={!selectedTemplate}
-                        className="bg-[#5B3DF5] hover:bg-[#4a2ee0] text-white font-bold rounded-2xl px-12 py-7 h-auto flex-1 lg:flex-none shadow-lg shadow-[#5B3DF5]/20 disabled:grayscale disabled:opacity-50 transition-all font-sans"
+                        className="bg-[#5B3DF5] hover:bg-[#4a2ee0] text-white font-bold rounded-xl lg:rounded-2xl px-8 lg:px-12 py-5 lg:py-7 h-auto flex-1 lg:flex-none shadow-lg shadow-[#5B3DF5]/20 disabled:grayscale disabled:opacity-50 transition-all font-sans"
                     >
                         Next Step
                         <motion.span animate={{ x: [0, 4, 0] }} transition={{ repeat: Infinity, duration: 1.5 }} className="ml-2">
