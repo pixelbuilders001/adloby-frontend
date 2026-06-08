@@ -4,8 +4,10 @@ import { motion } from "framer-motion";
 import { Heart, MapPin } from "lucide-react";
 import { POPULAR_LOCATIONS } from "@/data/adlobyData";
 import { cn } from "@/utils/cn";
+import { useRouter } from "next/navigation";
 
 export function PopularLocations() {
+    const router = useRouter();
     const [favorites, setFavorites] = React.useState<Record<string, boolean>>({});
 
     const toggleFavorite = (id: string, e: React.MouseEvent) => {
@@ -114,6 +116,7 @@ export function PopularLocations() {
 
                                         <motion.button
                                             whileTap={{ scale: 0.95 }}
+                                            onClick={() => router.push("/book")}
                                             className="px-3.5 py-1.5 rounded-xl bg-[#5B3DF5]/5 hover:bg-[#5B3DF5]/10 text-xs font-bold text-[#5B3DF5] transition-all"
                                         >
                                             Book

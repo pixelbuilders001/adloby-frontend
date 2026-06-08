@@ -8,6 +8,7 @@ import { Input } from "@/components/ui/Input";
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/components/ui/Card";
 import { Modal } from "@/components/ui/Modal";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 // Import Custom Nav, Headers and Sections
 import { BottomNavbar } from "@/components/navigation/BottomNavbar";
@@ -32,6 +33,7 @@ import {
 } from "lucide-react";
 
 export default function Home() {
+  const router = useRouter();
   const addToast = useToastStore((state) => state.addToast);
 
   // App States
@@ -208,12 +210,12 @@ export default function Home() {
               >
                 {/* Hero Slider banner */}
                 <Hero
-                  onExploreAds={() => setCurrentTab("advertising")}
+                  onExploreAds={() => router.push("/book")}
                   onExplorePrinting={() => setCurrentTab("printing")}
                 />
 
                 {/* Advertising Category grid */}
-                <AdvertisingGrid onSelectCategory={() => setCurrentTab("advertising")} />
+                <AdvertisingGrid onSelectCategory={() => router.push("/book")} />
 
                 {/* Popular Ad Locations list */}
                 <PopularLocations />
@@ -243,7 +245,7 @@ export default function Home() {
                   <h1 className="text-2xl font-black text-gray-900 uppercase tracking-tight">ADVERTISING SOLUTIONS</h1>
                   <p className="text-sm text-gray-500">Discover and book premium high-impact physical and digital display hoarding networks.</p>
                 </div>
-                <AdvertisingGrid onSelectCategory={() => { }} />
+                <AdvertisingGrid onSelectCategory={() => router.push("/book")} />
                 <PopularLocations />
               </motion.div>
             )}
@@ -294,7 +296,7 @@ export default function Home() {
                     <h1 className="text-2xl font-black text-gray-900 uppercase tracking-tight">Active Bookings</h1>
                     <p className="text-sm text-gray-500">Manage your active billboard slots and offset printing shipping orders.</p>
                   </div>
-                  <Button size="sm" onClick={() => setIsCreateModalOpen(true)} className="flex items-center gap-2 font-semibold bg-[#5B3DF5]">
+                  <Button size="sm" onClick={() => router.push("/book")} className="flex items-center gap-2 font-semibold bg-[#5B3DF5]">
                     <Plus className="h-4 w-4" /> Book New
                   </Button>
                 </div>
@@ -525,7 +527,7 @@ export default function Home() {
           setCurrentTab(tab);
           window.scrollTo({ top: 0, behavior: "smooth" });
         }}
-        onCreateClick={() => setIsCreateModalOpen(true)}
+        onCreateClick={() => router.push("/book")}
       />
 
       {/* Create Order Modal / Wizard */}
