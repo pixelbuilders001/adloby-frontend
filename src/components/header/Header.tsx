@@ -8,9 +8,11 @@ import {
     SlidersHorizontal,
     ChevronDown,
     User,
+    TrendingUp,
     Boxes
 } from "lucide-react";
 import { cn } from "@/utils/cn";
+import Link from "next/link";
 
 interface HeaderProps {
     currentLocation: string;
@@ -29,7 +31,21 @@ export function Header({
 }: HeaderProps) {
     const [isLocDropdownOpen, setIsLocDropdownOpen] = React.useState(false);
     const [isNotificationOpen, setIsNotificationOpen] = React.useState(false);
+    const [isPartnerMenuOpen, setIsPartnerMenuOpen] = React.useState(false);
     const [isFilterOpen, setIsFilterOpen] = React.useState(false);
+
+    const partnerMenuRef = React.useRef<HTMLDivElement>(null);
+
+    // Click outside listener
+    React.useEffect(() => {
+        const handleClickOutside = (event: MouseEvent) => {
+            if (partnerMenuRef.current && !partnerMenuRef.current.contains(event.target as Node)) {
+                setIsPartnerMenuOpen(false);
+            }
+        };
+        document.addEventListener("mousedown", handleClickOutside);
+        return () => document.removeEventListener("mousedown", handleClickOutside);
+    }, []);
 
     const locations = ["Gorakhpur", "Lucknow", "Delhi NCR", "Mumbai", "Bengaluru"];
 
@@ -161,6 +177,49 @@ export function Header({
                                             </div>
                                         </motion.div>
                                     </>
+                                )}
+                            </AnimatePresence>
+                        </div>
+
+                        {/* Become Partner Dropdown */}
+                        <div className="relative" ref={partnerMenuRef}>
+                            <button
+                                onClick={() => setIsPartnerMenuOpen(!isPartnerMenuOpen)}
+                                className="hidden sm:flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs font-bold text-[#5B3DF5] bg-[#5B3DF5]/5 hover:bg-[#5B3DF5]/10 border border-[#5B3DF5]/20 transition-all active:scale-[0.98]"
+                            >
+                                Become Partner
+                                <ChevronDown className={cn("h-3.5 w-3.5 transition-transform duration-200", isPartnerMenuOpen && "rotate-180")} />
+                            </button>
+
+                            <AnimatePresence>
+                                {isPartnerMenuOpen && (
+                                    <motion.div
+                                        initial={{ opacity: 0, y: 10 }}
+                                        animate={{ opacity: 1, y: 0 }}
+                                        exit={{ opacity: 0, y: 10 }}
+                                        className="absolute right-0 mt-2 w-48 rounded-xl border border-gray-200 bg-white shadow-lg py-2 z-20 overflow-hidden"
+                                    >
+                                        <Link
+                                            href="/partner/onboarding"
+                                            onClick={() => setIsPartnerMenuOpen(false)}
+                                            className="flex items-center gap-3 px-4 py-2.5 text-xs font-bold text-gray-700 hover:bg-[#5B3DF5]/5 hover:text-[#5B3DF5] transition-all"
+                                        >
+                                            <div className="h-7 w-7 rounded-lg bg-blue-50 flex items-center justify-center text-[#5B3DF5]">
+                                                <TrendingUp className="h-4 w-4" />
+                                            </div>
+                                            Ad Agency
+                                        </Link>
+                                        <Link
+                                            href="/shop/onboarding"
+                                            onClick={() => setIsPartnerMenuOpen(false)}
+                                            className="flex items-center gap-3 px-4 py-2.5 text-xs font-bold text-gray-700 hover:bg-[#5B3DF5]/5 hover:text-[#5B3DF5] transition-all"
+                                        >
+                                            <div className="h-7 w-7 rounded-lg bg-green-50 flex items-center justify-center text-green-600">
+                                                <Boxes className="h-4 w-4" />
+                                            </div>
+                                            Printing Shop
+                                        </Link>
+                                    </motion.div>
                                 )}
                             </AnimatePresence>
                         </div>

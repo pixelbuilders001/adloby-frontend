@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/Button";
 import { Input } from "@/components/ui/Input";
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/components/ui/Card";
 import { Modal } from "@/components/ui/Modal";
+import Link from "next/link";
 
 // Import Custom Nav, Headers and Sections
 import { BottomNavbar } from "@/components/navigation/BottomNavbar";
@@ -94,7 +95,7 @@ export default function Home() {
       {/* Mobile Drawer Backdrop */}
       <AnimatePresence>
         {isMobileMenuOpen && (
-          <div className="lg:hidden fixed inset-0 z-40 flex">
+          <div className="lg:hidden fixed inset-0 z-[100] flex">
             {/* Overlay */}
             <motion.div
               initial={{ opacity: 0 }}
@@ -126,7 +127,8 @@ export default function Home() {
               </div>
 
               {/* Navigation Items */}
-              <nav className="flex-1 space-y-2 py-4">
+              <nav className="flex-1 space-y-2 py-4 overflow-y-auto">
+                <div className="px-4 pb-2 text-[10px] font-black uppercase text-gray-400 tracking-widest">General</div>
                 {[
                   { id: "dashboard", label: "Dashboard", icon: Boxes },
                   { id: "advertising", label: "Advertising", icon: TrendingUp },
@@ -154,6 +156,24 @@ export default function Home() {
                     </button>
                   );
                 })}
+
+                <div className="pt-6 px-4 pb-2 text-[10px] font-black uppercase text-gray-400 tracking-widest border-t border-gray-100">Partnership</div>
+                <Link
+                  href="/partner/onboarding"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  className="w-full flex items-center gap-3 px-4 py-3 rounded-2xl text-sm font-semibold text-gray-500 hover:bg-[#5B3DF5]/5 hover:text-[#5B3DF5] transition-all"
+                >
+                  <TrendingUp className="h-5 w-5" />
+                  <span>Become Ad Agency</span>
+                </Link>
+                <Link
+                  href="/shop/onboarding"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  className="w-full flex items-center gap-3 px-4 py-3 rounded-2xl text-sm font-semibold text-gray-500 hover:bg-[#5B3DF5]/5 hover:text-[#5B3DF5] transition-all"
+                >
+                  <Boxes className="h-5 w-5" />
+                  <span>Become Printing Shop</span>
+                </Link>
               </nav>
             </motion.div>
           </div>
