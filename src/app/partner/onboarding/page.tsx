@@ -21,7 +21,15 @@ import {
     ShieldCheck,
     Calendar,
     TrendingUp,
-    Headset
+    Headset,
+    CreditCard,
+    MapPin,
+    Briefcase,
+    FileCheck,
+    ArrowLeft,
+    CheckCircle2,
+    Building2,
+    Info
 } from "lucide-react";
 import { cn } from "@/utils/cn";
 import { Button } from "@/components/ui/Button";
@@ -52,12 +60,112 @@ const SERVICES = [
 
 export default function OnboardingPage() {
     const [activeStep, setActiveStep] = React.useState(1);
-    const [selectedServices, setSelectedServices] = React.useState<string[]>([]);
+    const logoInputRef = React.useRef<HTMLInputElement>(null);
+    const docInputRef = React.useRef<HTMLInputElement>(null);
+    const [errors, setErrors] = React.useState<string[]>([]);
+
+    const [formData, setFormData] = React.useState({
+        // Step 1: Basic
+        agencyName: "",
+        businessType: "",
+        yearEstablished: "",
+        employeeCount: "",
+        about: "",
+        selectedServices: [] as string[],
+        logo: null as File | null,
+
+        // Step 2: Business
+        regNo: "",
+        gstin: "",
+        pan: "",
+        regAddress: "",
+
+        // Step 3: Contact
+        contactName: "",
+        designation: "",
+        email: "",
+        mobile: "",
+
+        // Step 4: Documents (Files)
+        gstCert: null as File | null,
+        panCopy: null as File | null,
+        businessProof: null as File | null,
+
+        // Step 5: Bank
+        accName: "",
+        accNo: "",
+        ifsc: "",
+        bankName: "",
+
+        // Step 6: Service Areas
+        cities: "",
+        states: "",
+
+        // Step 7: Profile
+        experience: "",
+        topClients: "",
+        portfolioUrl: ""
+    });
+
+    const updateFormData = (field: string, value: any) => {
+        setFormData(prev => ({ ...prev, [field]: value }));
+        if (errors.length > 0) setErrors([]);
+    };
+
+    const isStepValid = () => {
+        const newErrors: string[] = [];
+
+        if (activeStep === 1) {
+            if (!formData.agencyName) newErrors.push("Agency Name");
+            if (!formData.businessType) newErrors.push("Business Type");
+            if (!formData.yearEstablished) newErrors.push("Year Established");
+            if (!formData.employeeCount) newErrors.push("Employee Count");
+            if (!formData.about) newErrors.push("About Agency");
+            if (formData.selectedServices.length === 0) newErrors.push("Primary Services");
+        } else if (activeStep === 2) {
+            if (!formData.regNo) newErrors.push("Registration No");
+            if (!formData.gstin) newErrors.push("GSTIN");
+            if (!formData.pan) newErrors.push("PAN");
+            if (!formData.regAddress) newErrors.push("Registered Address");
+        } else if (activeStep === 3) {
+            if (!formData.contactName) newErrors.push("Contact Name");
+            if (!formData.designation) newErrors.push("Designation");
+            if (!formData.email) newErrors.push("Email");
+            if (!formData.mobile) newErrors.push("Mobile");
+        } else if (activeStep === 5) {
+            if (!formData.accName) newErrors.push("Account Name");
+            if (!formData.accNo) newErrors.push("Account Number");
+            if (!formData.ifsc) newErrors.push("IFSC Code");
+            if (!formData.bankName) newErrors.push("Bank Name");
+        }
+
+        setErrors(newErrors);
+        return newErrors.length === 0;
+    };
+
+    const nextStep = () => {
+        if (isStepValid()) {
+            if (activeStep < STEPS.length) setActiveStep(prev => prev + 1);
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+    };
+
+    const prevStep = () => {
+        if (activeStep > 1) setActiveStep(prev => prev - 1);
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    };
 
     const toggleService = (id: string) => {
-        setSelectedServices(prev =>
-            prev.includes(id) ? prev.filter(s => s !== id) : [...prev, id]
-        );
+        const prev = formData.selectedServices;
+        const newValue = prev.includes(id) ? prev.filter(s => s !== id) : [...prev, id];
+        updateFormData("selectedServices", newValue);
+    };
+
+    const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>, field: string) => {
+        const file = e.target.files?.[0];
+        if (file) {
+            updateFormData(field, file);
+        }
     };
 
     return (
@@ -180,166 +288,456 @@ export default function OnboardingPage() {
                     <div className="max-w-3xl mx-auto lg:mx-0">
                         <header className="mb-8 space-y-2">
                             <span className="text-[11px] font-black uppercase text-[#5B3DF5] tracking-widest">Step {activeStep} of 8</span>
-                            <h1 className="text-3xl font-black text-slate-900 tracking-tight">Basic Information</h1>
-                            <p className="text-sm text-gray-500 font-medium">Tell us about your advertising agency</p>
+                            <h1 className="text-3xl font-black text-slate-900 tracking-tight">
+                                {STEPS.find(s => s.id === activeStep)?.title}
+                            </h1>
+                            <p className="text-sm text-gray-500 font-medium">
+                                {STEPS.find(s => s.id === activeStep)?.desc}
+                            </p>
                         </header>
 
                         <div className="space-y-8">
-                            {/* Agency Logo Section */}
-                            <Card className="border-0 shadow-sm overflow-hidden">
-                                <CardContent className="p-8 space-y-4">
-                                    <h3 className="text-sm font-bold text-slate-800">Agency Logo</h3>
-                                    <p className="text-xs text-gray-400 -mt-2 font-medium">Upload your agency logo. This will be visible to customers.</p>
+                            {activeStep === 1 && (
+                                <>
+                                    {/* Agency Logo Section */}
+                                    <input
+                                        type="file"
+                                        ref={logoInputRef}
+                                        className="hidden"
+                                        accept="image/*"
+                                        onChange={(e) => handleFileChange(e, "logo")}
+                                    />
+                                    <Card className="border-0 shadow-sm overflow-hidden">
+                                        <CardContent className="p-8 space-y-4">
+                                            <h3 className="text-sm font-bold text-slate-800">Agency Logo</h3>
+                                            <p className="text-xs text-gray-400 -mt-2 font-medium">Upload your agency logo. This will be visible to customers.</p>
 
-                                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pt-2">
-                                        <div className="border-2 border-dashed border-gray-100 rounded-2xl p-8 flex flex-col items-center justify-center gap-3 bg-gray-50/50 group cursor-pointer hover:bg-gray-50 hover:border-[#5B3DF5]/30 transition-all duration-300">
-                                            <div className="h-10 w-10 rounded-full bg-white shadow-sm flex items-center justify-center text-gray-400 group-hover:text-[#5B3DF5] transition-colors">
-                                                <Upload className="h-5 w-5" />
-                                            </div>
-                                            <div className="text-center">
-                                                <p className="text-xs font-bold text-slate-700">Click to upload logo</p>
-                                                <p className="text-[10px] text-gray-400 font-medium mt-1">PNG, JPG or JPEG (Max. 2MB)</p>
-                                            </div>
-                                        </div>
-
-                                        <div className="bg-[#5B3DF5]/5 rounded-2xl p-6 flex gap-4 border border-[#5B3DF5]/10">
-                                            <Lightbulb className="h-5 w-5 text-[#5B3DF5] shrink-0" />
-                                            <div className="space-y-2">
-                                                <h4 className="text-xs font-bold text-[#5B3DF5]">Tips</h4>
-                                                <ul className="text-[10px] text-slate-600 space-y-2 font-medium">
-                                                    <li className="flex items-center gap-2">• Use a square logo for best results</li>
-                                                    <li className="flex items-center gap-2">• Minimum size 500x500 px</li>
-                                                    <li className="flex items-center gap-2">• Clear and professional logo recommended</li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </CardContent>
-                            </Card>
-
-                            {/* Agency Information Section */}
-                            <Card className="border-0 shadow-sm">
-                                <CardContent className="p-8 space-y-6">
-                                    <h3 className="text-sm font-bold text-slate-800">Agency Information</h3>
-
-                                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                                        <Input label="Agency Name *" placeholder="Enter agency / company name" className="text-xs font-medium placeholder:text-gray-300" />
-                                        <div className="space-y-1.5">
-                                            <label className="text-xs font-bold text-slate-700 uppercase tracking-wider text-[10px]">Business Type *</label>
-                                            <div className="relative">
-                                                <select className="w-full h-10 bg-white border border-gray-200 rounded-lg px-4 text-xs appearance-none focus:ring-1 focus:ring-[#5B3DF5] outline-none font-medium text-slate-600">
-                                                    <option>Select business type</option>
-                                                    <option>Private Limited</option>
-                                                    <option>Proprietorship</option>
-                                                </select>
-                                                <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400 pointer-events-none" />
-                                            </div>
-                                        </div>
-                                        <div className="space-y-1.5">
-                                            <label className="text-xs font-bold text-slate-700 uppercase tracking-wider text-[10px]">Year Established *</label>
-                                            <div className="relative">
-                                                <select className="w-full h-10 bg-white border border-gray-200 rounded-lg px-4 text-xs appearance-none focus:ring-1 focus:ring-[#5B3DF5] outline-none font-medium text-slate-600">
-                                                    <option>Select year</option>
-                                                    {[...Array(30)].map((_, i) => (
-                                                        <option key={i}>{2024 - i}</option>
-                                                    ))}
-                                                </select>
-                                                <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400 pointer-events-none" />
-                                            </div>
-                                        </div>
-                                        <div className="space-y-1.5">
-                                            <label className="text-xs font-bold text-slate-700 uppercase tracking-wider text-[10px]">No. of Employees *</label>
-                                            <div className="relative">
-                                                <select className="w-full h-10 bg-white border border-gray-200 rounded-lg px-4 text-xs appearance-none focus:ring-1 focus:ring-[#5B3DF5] outline-none font-medium text-slate-600">
-                                                    <option>Select number of employees</option>
-                                                    <option>1-10</option>
-                                                    <option>11-50</option>
-                                                    <option>50+</option>
-                                                </select>
-                                                <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400 pointer-events-none" />
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div className="space-y-1.5 pt-2">
-                                        <label className="text-xs font-bold text-slate-700 uppercase tracking-wider text-[10px]">About Your Agency *</label>
-                                        <div className="relative">
-                                            <textarea
-                                                placeholder="Write a brief description about your agency, your experience and services..."
-                                                className="w-full min-h-[120px] bg-white border border-gray-200 rounded-xl p-4 text-xs font-medium focus:ring-1 focus:ring-[#5B3DF5] outline-none resize-none placeholder:text-gray-300"
-                                            />
-                                            <div className="absolute bottom-3 right-3 text-[10px] font-bold text-gray-300">0 / 500</div>
-                                        </div>
-                                    </div>
-                                </CardContent>
-                            </Card>
-
-                            {/* Primary Services Offered Section */}
-                            <div className="space-y-4 pt-4">
-                                <div>
-                                    <h3 className="text-sm font-bold text-slate-800">Primary Services Offered *</h3>
-                                    <p className="text-[10px] text-gray-400 font-bold uppercase tracking-wider mt-1">Select all that apply</p>
-                                </div>
-
-                                <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3">
-                                    {SERVICES.map((service) => {
-                                        const Icon = service.icon;
-                                        const isSelected = selectedServices.includes(service.id);
-                                        return (
-                                            <button
-                                                key={service.id}
-                                                onClick={() => toggleService(service.id)}
-                                                className={cn(
-                                                    "flex flex-col items-center justify-center gap-2.5 p-4 rounded-xl border transition-all duration-300",
-                                                    isSelected
-                                                        ? "bg-[#5B3DF5]/5 border-[#5B3DF5] text-[#5B3DF5] shadow-[0_4px_12px_rgba(91,61,245,0.08)]"
-                                                        : "bg-white border-gray-100 text-slate-500 hover:border-gray-200 hover:shadow-sm"
-                                                )}
-                                            >
-                                                <div className={cn(
-                                                    "h-8 w-8 rounded-lg flex items-center justify-center transition-colors",
-                                                    isSelected ? "bg-[#5B3DF5]/10" : "bg-gray-50"
-                                                )}>
-                                                    <Icon className="h-4.5 w-4.5" />
+                                            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pt-2">
+                                                <div
+                                                    onClick={() => logoInputRef.current?.click()}
+                                                    className="border-2 border-dashed border-gray-100 rounded-2xl p-8 flex flex-col items-center justify-center gap-3 bg-gray-50/50 group cursor-pointer hover:bg-gray-50 hover:border-[#5B3DF5]/30 transition-all duration-300"
+                                                >
+                                                    <div className="h-10 w-10 rounded-full bg-white shadow-sm flex items-center justify-center text-gray-400 group-hover:text-[#5B3DF5] transition-colors">
+                                                        <Upload className="h-5 w-5" />
+                                                    </div>
+                                                    <div className="text-center">
+                                                        <p className="text-xs font-bold text-slate-700">
+                                                            {formData.logo ? formData.logo.name : "Click to upload logo"}
+                                                        </p>
+                                                        <p className="text-[10px] text-gray-400 font-medium mt-1">PNG, JPG or JPEG (Max. 2MB)</p>
+                                                    </div>
                                                 </div>
-                                                <span className="text-[10px] font-bold text-center leading-tight">{service.label}</span>
-                                            </button>
-                                        );
-                                    })}
+
+                                                <div className="bg-[#5B3DF5]/5 rounded-2xl p-6 flex gap-4 border border-[#5B3DF5]/10">
+                                                    <Lightbulb className="h-5 w-5 text-[#5B3DF5] shrink-0" />
+                                                    <div className="space-y-2">
+                                                        <h4 className="text-xs font-bold text-[#5B3DF5]">Tips</h4>
+                                                        <ul className="text-[10px] text-slate-600 space-y-2 font-medium">
+                                                            <li className="flex items-center gap-2">• Use a square logo for best results</li>
+                                                            <li className="flex items-center gap-2">• Minimum size 500x500 px</li>
+                                                            <li className="flex items-center gap-2">• Clear and professional logo recommended</li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </CardContent>
+                                    </Card>
+
+                                    {/* Agency Information Section */}
+                                    <Card className="border-0 shadow-sm">
+                                        <CardContent className="p-8 space-y-6">
+                                            <h3 className="text-sm font-bold text-slate-800">Agency Information</h3>
+
+                                            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                                <Input
+                                                    label="Agency Name *"
+                                                    placeholder="Enter agency / company name"
+                                                    value={formData.agencyName}
+                                                    onChange={(e) => updateFormData("agencyName", e.target.value)}
+                                                    className="text-xs font-medium placeholder:text-gray-300"
+                                                />
+                                                <div className="space-y-1.5">
+                                                    <label className="text-xs font-bold text-slate-700 uppercase tracking-wider text-[10px]">Business Type *</label>
+                                                    <div className="relative">
+                                                        <select
+                                                            value={formData.businessType}
+                                                            onChange={(e) => updateFormData("businessType", e.target.value)}
+                                                            className="w-full h-10 bg-white border border-gray-200 rounded-lg px-4 text-xs appearance-none focus:ring-1 focus:ring-[#5B3DF5] outline-none font-medium text-slate-600"
+                                                        >
+                                                            <option value="">Select business type</option>
+                                                            <option>Private Limited</option>
+                                                            <option>Proprietorship</option>
+                                                            <option>Partnership</option>
+                                                        </select>
+                                                        <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400 pointer-events-none" />
+                                                    </div>
+                                                </div>
+                                                <div className="space-y-1.5">
+                                                    <label className="text-xs font-bold text-slate-700 uppercase tracking-wider text-[10px]">Year Established *</label>
+                                                    <div className="relative">
+                                                        <select
+                                                            value={formData.yearEstablished}
+                                                            onChange={(e) => updateFormData("yearEstablished", e.target.value)}
+                                                            className="w-full h-10 bg-white border border-gray-200 rounded-lg px-4 text-xs appearance-none focus:ring-1 focus:ring-[#5B3DF5] outline-none font-medium text-slate-600"
+                                                        >
+                                                            <option value="">Select year</option>
+                                                            {[...Array(30)].map((_, i) => (
+                                                                <option key={i}>{2024 - i}</option>
+                                                            ))}
+                                                        </select>
+                                                        <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400 pointer-events-none" />
+                                                    </div>
+                                                </div>
+                                                <div className="space-y-1.5">
+                                                    <label className="text-xs font-bold text-slate-700 uppercase tracking-wider text-[10px]">No. of Employees *</label>
+                                                    <div className="relative">
+                                                        <select
+                                                            value={formData.employeeCount}
+                                                            onChange={(e) => updateFormData("employeeCount", e.target.value)}
+                                                            className="w-full h-10 bg-white border border-gray-200 rounded-lg px-4 text-xs appearance-none focus:ring-1 focus:ring-[#5B3DF5] outline-none font-medium text-slate-600"
+                                                        >
+                                                            <option value="">Select employees</option>
+                                                            <option>1-10</option>
+                                                            <option>11-50</option>
+                                                            <option>50+</option>
+                                                        </select>
+                                                        <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400 pointer-events-none" />
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div className="space-y-1.5 pt-2">
+                                                <label className="text-xs font-bold text-slate-700 uppercase tracking-wider text-[10px]">About Your Agency *</label>
+                                                <div className="relative">
+                                                    <textarea
+                                                        value={formData.about}
+                                                        onChange={(e) => updateFormData("about", e.target.value)}
+                                                        placeholder="Write a brief description..."
+                                                        className="w-full min-h-[120px] bg-white border border-gray-200 rounded-xl p-4 text-xs font-medium focus:ring-1 focus:ring-[#5B3DF5] outline-none resize-none placeholder:text-gray-300"
+                                                    />
+                                                    <div className="absolute bottom-3 right-3 text-[10px] font-bold text-gray-300">
+                                                        {formData.about.length} / 500
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </CardContent>
+                                    </Card>
+
+                                    {/* Primary Services Offered */}
+                                    <div className="space-y-4 pt-4">
+                                        <div>
+                                            <h3 className="text-sm font-bold text-slate-800">Primary Services Offered *</h3>
+                                            <p className="text-[10px] text-gray-400 font-bold uppercase tracking-wider mt-1">Select all that apply</p>
+                                        </div>
+
+                                        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
+                                            {SERVICES.map((service) => {
+                                                const Icon = service.icon;
+                                                const isSelected = formData.selectedServices.includes(service.id);
+                                                return (
+                                                    <button
+                                                        key={service.id}
+                                                        onClick={() => toggleService(service.id)}
+                                                        className={cn(
+                                                            "flex flex-col items-center justify-center gap-2.5 p-4 rounded-xl border transition-all duration-300",
+                                                            isSelected
+                                                                ? "bg-[#5B3DF5]/5 border-[#5B3DF5] text-[#5B3DF5]"
+                                                                : "bg-white border-gray-100 text-slate-500 hover:border-gray-200"
+                                                        )}
+                                                    >
+                                                        <div className={cn(
+                                                            "h-8 w-8 rounded-lg flex items-center justify-center",
+                                                            isSelected ? "bg-[#5B3DF5]/10" : "bg-gray-50"
+                                                        )}>
+                                                            <Icon className="h-4.5 w-4.5" />
+                                                        </div>
+                                                        <span className="text-[10px] font-bold text-center leading-tight">{service.label}</span>
+                                                    </button>
+                                                );
+                                            })}
+                                        </div>
+                                    </div>
+                                </>
+                            )}
+
+                            {activeStep === 2 && (
+                                <Card className="border-0 shadow-sm">
+                                    <CardContent className="p-8 space-y-6">
+                                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                            <Input
+                                                label="Registration Number *"
+                                                placeholder="CIN or Reg No"
+                                                value={formData.regNo}
+                                                onChange={(e) => updateFormData("regNo", e.target.value)}
+                                            />
+                                            <Input
+                                                label="GSTIN Number *"
+                                                placeholder="22AAAAA0000A1Z5"
+                                                value={formData.gstin}
+                                                onChange={(e) => updateFormData("gstin", e.target.value)}
+                                            />
+                                            <Input
+                                                label="PAN Number *"
+                                                placeholder="ABCDE1234F"
+                                                value={formData.pan}
+                                                onChange={(e) => updateFormData("pan", e.target.value)}
+                                            />
+                                            <div className="md:col-span-2 space-y-1.5">
+                                                <label className="text-xs font-bold text-slate-700 uppercase tracking-wider text-[10px]">Registered Office Address *</label>
+                                                <textarea
+                                                    value={formData.regAddress}
+                                                    onChange={(e) => updateFormData("regAddress", e.target.value)}
+                                                    className="w-full h-24 bg-white border border-gray-200 rounded-lg px-4 py-3 text-xs focus:ring-1 focus:ring-[#5B3DF5] outline-none font-medium text-slate-600 resize-none"
+                                                    placeholder="Full office address with pincode"
+                                                />
+                                            </div>
+                                        </div>
+                                    </CardContent>
+                                </Card>
+                            )}
+
+                            {activeStep === 3 && (
+                                <Card className="border-0 shadow-sm">
+                                    <CardContent className="p-8 space-y-6">
+                                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                            <Input
+                                                label="Authorized Person Name *"
+                                                placeholder="Full Name"
+                                                value={formData.contactName}
+                                                onChange={(e) => updateFormData("contactName", e.target.value)}
+                                            />
+                                            <Input
+                                                label="Designation *"
+                                                placeholder="Managing Director / Owner"
+                                                value={formData.designation}
+                                                onChange={(e) => updateFormData("designation", e.target.value)}
+                                            />
+                                            <Input
+                                                label="Official Email Address *"
+                                                type="email"
+                                                placeholder="agency@domain.com"
+                                                value={formData.email}
+                                                onChange={(e) => updateFormData("email", e.target.value)}
+                                            />
+                                            <Input
+                                                label="Mobile Number *"
+                                                placeholder="+91 00000 00000"
+                                                value={formData.mobile}
+                                                onChange={(e) => updateFormData("mobile", e.target.value)}
+                                            />
+                                        </div>
+                                    </CardContent>
+                                </Card>
+                            )}
+
+                            {activeStep === 4 && (
+                                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                                    {[
+                                        { title: "GST Certificate", desc: "GSTIN Proof", field: "gstCert" },
+                                        { title: "PAN Card", desc: "Company/Individual PAN", field: "panCopy" },
+                                        { title: "Registration Proof", desc: "COI or Trade License", field: "businessProof" },
+                                    ].map((doc, i) => (
+                                        <div key={i} className="relative">
+                                            <input
+                                                type="file"
+                                                id={`file-${doc.field}`}
+                                                className="hidden"
+                                                onChange={(e) => handleFileChange(e, doc.field as any)}
+                                            />
+                                            <Card
+                                                onClick={() => document.getElementById(`file-${doc.field}`)?.click()}
+                                                className="border-2 border-dashed border-gray-100 hover:border-[#5B3DF5]/30 cursor-pointer transition-all group"
+                                            >
+                                                <CardContent className="p-6 flex flex-col items-center justify-center text-center gap-3">
+                                                    <div className="h-10 w-10 rounded-full bg-gray-50 flex items-center justify-center text-gray-400 group-hover:text-[#5B3DF5] transition-colors">
+                                                        <Upload className="h-5 w-5" />
+                                                    </div>
+                                                    <div>
+                                                        <h4 className="text-xs font-bold text-slate-800">{doc.title}</h4>
+                                                        <p className="text-[10px] text-gray-400 font-medium">
+                                                            {(formData as any)[doc.field as any] ? (formData as any)[doc.field as any].name : doc.desc}
+                                                        </p>
+                                                    </div>
+                                                </CardContent>
+                                            </Card>
+                                        </div>
+                                    ))}
                                 </div>
-                            </div>
+                            )}
 
-                            {/* Why Join Section */}
-                            <Card className="border-0 shadow-sm mt-8">
-                                <CardContent className="p-8 space-y-4">
-                                    <div>
-                                        <h3 className="text-sm font-bold text-slate-800">Why Join Adloby? <span className="text-gray-400 font-medium">(Optional)</span></h3>
-                                        <p className="text-xs text-gray-400 font-medium">Let us know what you expect from Adloby</p>
+                            {activeStep === 5 && (
+                                <Card className="border-0 shadow-sm">
+                                    <CardContent className="p-8 space-y-6">
+                                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                            <Input
+                                                label="Account Holder Name *"
+                                                placeholder="Full name as in bank"
+                                                value={formData.accName}
+                                                onChange={(e) => updateFormData("accName", e.target.value)}
+                                            />
+                                            <Input
+                                                label="Bank Name *"
+                                                placeholder="HDFC Bank, SBI etc"
+                                                value={formData.bankName}
+                                                onChange={(e) => updateFormData("bankName", e.target.value)}
+                                            />
+                                            <Input
+                                                label="Account Number *"
+                                                placeholder="0000 0000 0000"
+                                                value={formData.accNo}
+                                                onChange={(e) => updateFormData("accNo", e.target.value)}
+                                            />
+                                            <Input
+                                                label="IFSC Code *"
+                                                placeholder="HDFC0001234"
+                                                value={formData.ifsc}
+                                                onChange={(e) => updateFormData("ifsc", e.target.value)}
+                                            />
+                                        </div>
+                                    </CardContent>
+                                </Card>
+                            )}
+
+                            {activeStep === 6 && (
+                                <Card className="border-0 shadow-sm">
+                                    <CardContent className="p-8 space-y-6">
+                                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                            <Input
+                                                label="Operational Cities *"
+                                                placeholder="New Delhi, Mumbai, Lucknow"
+                                                value={formData.cities}
+                                                onChange={(e) => updateFormData("cities", e.target.value)}
+                                            />
+                                            <Input
+                                                label="Operational States *"
+                                                placeholder="Delhi, Uttar Pradesh, Maharashtra"
+                                                value={formData.states}
+                                                onChange={(e) => updateFormData("states", e.target.value)}
+                                            />
+                                        </div>
+                                        <div className="bg-blue-50 p-4 rounded-xl border border-blue-100 flex gap-3">
+                                            <Info className="h-5 w-5 text-blue-500 shrink-0" />
+                                            <p className="text-[10px] text-blue-600 font-medium">You can select multiple cities or states where your agency has active inventory.</p>
+                                        </div>
+                                    </CardContent>
+                                </Card>
+                            )}
+
+                            {activeStep === 7 && (
+                                <Card className="border-0 shadow-sm">
+                                    <CardContent className="p-8 space-y-6">
+                                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                            <Input
+                                                label="Years of Experience *"
+                                                placeholder="e.g. 10"
+                                                value={formData.experience}
+                                                onChange={(e) => updateFormData("experience", e.target.value)}
+                                            />
+                                            <Input
+                                                label="Portfolio / Website Link"
+                                                placeholder="https://agency.com"
+                                                value={formData.portfolioUrl}
+                                                onChange={(e) => updateFormData("portfolioUrl", e.target.value)}
+                                            />
+                                            <div className="md:col-span-2 space-y-1.5">
+                                                <label className="text-xs font-bold text-slate-700 uppercase tracking-wider text-[10px]">Top 3 Clients *</label>
+                                                <textarea
+                                                    value={formData.topClients}
+                                                    onChange={(e) => updateFormData("topClients", e.target.value)}
+                                                    className="w-full h-24 bg-white border border-gray-200 rounded-lg px-4 py-3 text-xs focus:ring-1 focus:ring-[#5B3DF5] outline-none font-medium text-slate-600 resize-none"
+                                                    placeholder="List your major clients (separated by comma)"
+                                                />
+                                            </div>
+                                        </div>
+                                    </CardContent>
+                                </Card>
+                            )}
+
+                            {activeStep === 8 && (
+                                <Card className="border-0 shadow-sm">
+                                    <CardContent className="p-8 space-y-8">
+                                        <div className="flex items-center gap-4 p-4 bg-green-50 border border-green-100 rounded-2xl">
+                                            <div className="h-10 w-10 rounded-full bg-green-500 flex items-center justify-center text-white">
+                                                <CheckCircle2 className="h-6 w-6" />
+                                            </div>
+                                            <div>
+                                                <h4 className="text-sm font-bold text-green-900">Ready to Submit</h4>
+                                                <p className="text-xs text-green-700">Please review your information carefully.</p>
+                                            </div>
+                                        </div>
+
+                                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
+                                            <div className="space-y-4">
+                                                <h5 className="text-[10px] font-black uppercase text-gray-400 tracking-widest border-b pb-2">Agency Details</h5>
+                                                <div className="space-y-2">
+                                                    <p className="text-xs font-bold text-slate-700">{formData.agencyName || "N/A"}</p>
+                                                    <p className="text-[11px] text-gray-500 font-medium">{formData.about?.substring(0, 100)}...</p>
+                                                    <div className="flex flex-wrap gap-1.5 pt-1">
+                                                        {formData.selectedServices.map(s => (
+                                                            <span key={s} className="text-[9px] font-bold bg-[#5B3DF5]/5 text-[#5B3DF5] px-2 py-0.5 rounded-full">{s}</span>
+                                                        ))}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div className="space-y-4">
+                                                <h5 className="text-[10px] font-black uppercase text-gray-400 tracking-widest border-b pb-2">Legal Information</h5>
+                                                <div className="space-y-2 text-[11px]">
+                                                    <div className="flex justify-between border-b border-gray-50 pb-1">
+                                                        <span className="text-gray-400 font-medium">GSTIN:</span>
+                                                        <span className="text-slate-700 font-bold">{formData.gstin || "N/A"}</span>
+                                                    </div>
+                                                    <div className="flex justify-between border-b border-gray-50 pb-1">
+                                                        <span className="text-gray-400 font-medium">PAN:</span>
+                                                        <span className="text-slate-700 font-bold">{formData.pan || "N/A"}</span>
+                                                    </div>
+                                                    <div className="flex justify-between border-b border-gray-50 pb-1">
+                                                        <span className="text-gray-400 font-medium">Contact:</span>
+                                                        <span className="text-slate-700 font-bold">{formData.mobile || "N/A"}</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </CardContent>
+                                </Card>
+                            )}
+
+                            {/* Navigation Buttons */}
+                            <div className="space-y-4 pt-4 border-t border-gray-100">
+                                {errors.length > 0 && (
+                                    <div className="bg-red-50 border border-red-100 rounded-xl p-4 flex gap-3">
+                                        <Info className="h-5 w-5 text-red-500 shrink-0" />
+                                        <div className="space-y-1">
+                                            <p className="text-xs font-bold text-red-800">Please complete the following fields:</p>
+                                            <p className="text-[10px] text-red-600 font-medium">{errors.join(", ")}</p>
+                                        </div>
                                     </div>
-                                    <div className="relative">
-                                        <select className="w-full h-11 bg-white border border-gray-200 rounded-xl px-4 text-xs appearance-none focus:ring-1 focus:ring-[#5B3DF5] outline-none font-medium text-slate-600">
-                                            <option>Select or write your expectations...</option>
-                                            <option>More Bookings</option>
-                                            <option>Better Reach</option>
-                                        </select>
-                                        <ChevronDown className="absolute right-4 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400 pointer-events-none" />
-                                    </div>
-                                </CardContent>
-                            </Card>
+                                )}
+                                <div className="flex justify-between items-center pt-4">
+                                    <Button
+                                        variant="outline"
+                                        onClick={prevStep}
+                                        disabled={activeStep === 1}
+                                        className={cn(
+                                            "rounded-xl px-8 font-bold flex items-center gap-2 border-gray-200 text-slate-600 transition-all active:scale-[0.98]",
+                                            activeStep === 1 && "opacity-0"
+                                        )}
+                                    >
+                                        <ArrowLeft className="h-4 w-4" />
+                                        Previous
+                                    </Button>
 
-                            {/* Declaration */}
-                            <div className="flex items-start gap-3 py-4">
-                                <input type="checkbox" className="mt-1 h-3.5 w-3.5 rounded border-gray-300 text-[#5B3DF5] focus:ring-[#5B3DF5]" />
-                                <p className="text-xs font-bold text-slate-600">I hereby declare that the information provided is true and correct to the best of my knowledge.</p>
-                            </div>
-
-                            <div className="flex justify-end pt-4 border-t border-gray-100">
-                                <Button className="bg-[#5B3DF5] hover:bg-[#4a2ee0] text-white font-bold rounded-xl px-8 py-6 h-auto flex items-center gap-2 group transition-all active:scale-[0.98]">
-                                    Save & Continue
-                                    <motion.span animate={{ x: [0, 3, 0] }} transition={{ repeat: Infinity, duration: 1.5 }}>
-                                        →
-                                    </motion.span>
-                                </Button>
+                                    <Button
+                                        onClick={nextStep}
+                                        className="bg-[#5B3DF5] hover:bg-[#4a2ee0] text-white font-bold rounded-xl px-10 py-6 h-auto flex items-center gap-2 group transition-all active:scale-[0.98] shadow-lg shadow-[#5B3DF5]/20"
+                                    >
+                                        {activeStep === STEPS.length ? "Complete Submission" : "Save & Continue"}
+                                        {activeStep < STEPS.length && (
+                                            <motion.span animate={{ x: [0, 3, 0] }} transition={{ repeat: Infinity, duration: 1.5 }}>
+                                                →
+                                            </motion.span>
+                                        )}
+                                    </Button>
+                                </div>
                             </div>
                         </div>
                     </div>
