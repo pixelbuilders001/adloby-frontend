@@ -1,7 +1,8 @@
 "use client";
 
 import * as React from "react";
-import { Search, Check, ArrowLeft, Filter, Grid, Boxes, Hospital, GraduationCap, Building, Utensils, ShoppingBag, Car } from "lucide-react";
+import Image from "next/image";
+import { Check, ArrowLeft, Grid, Hospital, GraduationCap, Building, Utensils, ShoppingBag, Car } from "lucide-react";
 import { useBookingStore } from "@/store/useBookingStore";
 import { Button } from "@/components/ui/Button";
 import { cn } from "@/utils/cn";
@@ -79,9 +80,10 @@ export default function ChooseTemplate() {
                                 )}
                             >
                                 <div className="h-48 w-full relative overflow-hidden">
-                                    <img
+                                    <Image
                                         src={template.image}
                                         alt={template.name}
+                                        fill
                                         className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                                     />
                                     <div className="absolute top-4 right-4 h-8 px-3 rounded-full bg-black/50 backdrop-blur-md text-white text-[10px] font-black uppercase tracking-widest flex items-center">

@@ -4,8 +4,6 @@ import * as React from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import {
     Check,
-    ArrowLeft,
-    AlertCircle,
     HelpCircle,
     X,
     MapPin,
@@ -14,16 +12,12 @@ import {
     Building2,
     Calendar,
     LayoutTemplate,
-    Search,
     ShieldCheck,
-    TrendingUp,
-    Headset,
     Boxes,
     Edit2
 } from "lucide-react";
 import { cn } from "@/utils/cn";
 import { useBookingStore } from "@/store/useBookingStore";
-import { Button } from "@/components/ui/Button";
 import Link from "next/link";
 
 // Import steps

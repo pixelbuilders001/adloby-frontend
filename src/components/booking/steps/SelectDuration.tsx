@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { Check, ArrowLeft, Clock, Zap } from "lucide-react";
+import { Check, ArrowLeft, Zap } from "lucide-react";
 import { useBookingStore } from "@/store/useBookingStore";
 import { Button } from "@/components/ui/Button";
 import { cn } from "@/utils/cn";

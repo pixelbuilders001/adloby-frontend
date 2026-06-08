@@ -1,13 +1,21 @@
 "use client";
 
 import * as React from "react";
-import { Check, ArrowLeft, Maximize, Layout } from "lucide-react";
+import { Check, ArrowLeft, Layout } from "lucide-react";
 import { useBookingStore } from "@/store/useBookingStore";
 import { Button } from "@/components/ui/Button";
 import { cn } from "@/utils/cn";
 import { motion } from "framer-motion";
 
-const SIZES = [
+interface SizeItem {
+    id: string;
+    label: string;
+    sqft: number;
+    multiplier: number;
+    price: number;
+}
+
+const SIZES: SizeItem[] = [
     { id: "5x4", label: "5 x 4 ft", sqft: 20, multiplier: 1, price: 2800 },
     { id: "10x10", label: "10 x 10 ft", sqft: 100, multiplier: 2.5, price: 7000 },
     { id: "20x10", label: "20 x 10 ft", sqft: 200, multiplier: 5, price: 14000 },
@@ -32,7 +40,7 @@ export default function SelectSize() {
                         return (
                             <button
                                 key={size.id}
-                                onClick={() => updateBooking({ size: size as any })}
+                                onClick={() => updateBooking({ size: size })}
                                 className={cn(
                                     "relative flex flex-col p-6 rounded-3xl border-2 transition-all duration-300 group active:scale-[0.98]",
                                     isSelected

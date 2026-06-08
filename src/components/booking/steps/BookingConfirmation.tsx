@@ -1,10 +1,9 @@
 "use client";
 
 import * as React from "react";
-import { CheckCircle2, Download, ExternalLink, ArrowLeft, Home, Package } from "lucide-react";
+import { CheckCircle2, Download, Home, Package } from "lucide-react";
 import { useBookingStore } from "@/store/useBookingStore";
 import { Button } from "@/components/ui/Button";
-import { cn } from "@/utils/cn";
 import { motion } from "framer-motion";
 import Link from "next/link";
 

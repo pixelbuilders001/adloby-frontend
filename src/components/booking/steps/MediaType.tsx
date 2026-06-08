@@ -7,11 +7,9 @@ import {
     MonitorPlay,
     Brush,
     Bus,
-    Plane,
     Check,
     ArrowLeft,
-    Gamepad2,
-    Layout
+    Gamepad2
 } from "lucide-react";
 import { useBookingStore } from "@/store/useBookingStore";
 import { Button } from "@/components/ui/Button";

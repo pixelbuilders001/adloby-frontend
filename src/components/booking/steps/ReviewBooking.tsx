@@ -1,11 +1,9 @@
 "use client";
 
 import * as React from "react";
-import { Check, ArrowLeft, Edit2, Info, ArrowRight } from "lucide-react";
+import { ArrowLeft, Edit2, Info, ArrowRight } from "lucide-react";
 import { useBookingStore } from "@/store/useBookingStore";
 import { Button } from "@/components/ui/Button";
-import { cn } from "@/utils/cn";
-import { motion } from "framer-motion";
 
 export default function ReviewBooking() {
     const {

@@ -1,13 +1,20 @@
 "use client";
 
 import * as React from "react";
-import { Search, MapPin, Check, ArrowLeft, Star } from "lucide-react";
+import { Search, Check, ArrowLeft } from "lucide-react";
 import { useBookingStore } from "@/store/useBookingStore";
 import { Button } from "@/components/ui/Button";
 import { cn } from "@/utils/cn";
 import { motion } from "framer-motion";
 
-const LOCATIONS = [
+interface LocationItem {
+    id: string;
+    name: string;
+    category: 'Premium' | 'Standard' | 'Basic';
+    price: number;
+}
+
+const LOCATIONS: LocationItem[] = [
     { id: "golghar", name: "Golghar Chowk", category: "Premium", price: 2800 },
     { id: "station", name: "Railway Station", category: "Premium", price: 2500 },
     { id: "medical", name: "Medical College Road", category: "Standard", price: 2000 },
@@ -50,7 +57,7 @@ export default function SelectLocation() {
                         return (
                             <button
                                 key={loc.id}
-                                onClick={() => updateBooking({ location: loc as any })}
+                                onClick={() => updateBooking({ location: loc })}
                                 className={cn(
                                     "w-full flex items-center justify-between p-5 rounded-2xl border-2 transition-all duration-300 group active:scale-[0.99]",
                                     isSelected
